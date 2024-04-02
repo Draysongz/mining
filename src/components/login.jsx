@@ -17,22 +17,34 @@ import {
   InputRightElement,
   Link,
 } from "@chakra-ui/react";
-// import spiralImg from "../images/Vector.png";
+import spiralImg from "../images/Vector.png";
+import Image from "next/image";
 
 export default function Login() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   return (
     <>
-      <Box
-        bgImage="url('../images/Vector.png')"
-        bgPosition="center"
-        bgRepeat="no-repeat"
-        zIndex={-1}
-      >
-        This box does should have an image
-        <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"#10062D"}>
-          <Stack spacing={8} mx={"auto"} maxW={"2xl"} py={10} px={6}>
+      <Box bg={"#10062D"} position="relative">
+        <Image
+          src={spiralImg}
+          placeholder="blur"
+          quality={100}
+          fill
+          sizes="100vw"
+          style={{
+            objectFit: "cover",
+          }}
+        />
+        <Flex minH={"100vh"} align={"center"} justify={"center"}>
+          <Stack
+            spacing={8}
+            mx={"auto"}
+            maxW={"2xl"}
+            py={10}
+            px={6}
+            position="absolute"
+          >
             <Box
               rounded={"lg"}
               bg={useColorModeValue("#10062D", "gray.700")}
