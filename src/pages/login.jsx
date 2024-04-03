@@ -55,7 +55,6 @@ export default function Login() {
               minH={{ sm: "md", md: "lg" }}
             >
               <Stack spacing={10}>
-                {" "}
                 <Heading size={"h5"} textAlign="center" color={"#501EE1"} p={5}>
                   Login
                 </Heading>
