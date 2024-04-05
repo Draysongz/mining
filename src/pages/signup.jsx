@@ -19,10 +19,35 @@ import {
 import { useState } from "react";
 import spiralImg from "../images/Vector.png";
 import Image from "next/image";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 // import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const router = useRouter()
+
+  const register = async(e)=>{
+    e.preventDefault()
+    try {
+      const newUser = axios.post('api/register', {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password:password
+      })
+      console.log(newUser)
+      toast.success('Registration successful')
+      router.push('/login')
+    } catch (error) {
+      const errorMessage = error.response? error.response.data : ""
+      console.log(errorMessage)
+    }
+  }
 
   return (
     <Box bg={"#10062D"} position="relative">
@@ -67,6 +92,8 @@ export default function SignupCard() {
                       placeholder="First Name"
                       _placeholder={{ color: "#C5C0C0" }}
                       border="2px solid #301287"
+                      value={firstName}
+                      onChange={(e)=>setFirstName(e.target.value)}
                     />
                   </FormControl>
                 </Box>
@@ -75,9 +102,11 @@ export default function SignupCard() {
                     <FormLabel>Last Name</FormLabel>
                     <Input
                       type="text"
-                      placeholder="First Name"
+                      placeholder="Last Name"
                       _placeholder={{ color: "#C5C0C0" }}
                       border="2px solid #301287"
+                      value={lastName}
+                      onChange={(e)=>setLastName(e.target.value)}
                     />
                   </FormControl>
                 </Box>
@@ -86,9 +115,11 @@ export default function SignupCard() {
                 <FormLabel>Email address</FormLabel>
                 <Input
                   type="email"
-                  placeholder="First Name"
+                  placeholder="Email address"
                   _placeholder={{ color: "#C5C0C0" }}
                   border="2px solid #301287"
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
               </FormControl>
               <FormControl id="password" isRequired color={"white"}>
@@ -102,6 +133,8 @@ export default function SignupCard() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     _placeholder={{ color: "#C5C0C0" }}
+                    value={password}
+                    onChange={(e)=>setPassword(e.target.value)}
                   />
                   <InputRightElement h={"full"}>
                     <Button
@@ -124,6 +157,7 @@ export default function SignupCard() {
                   _hover={{
                     bg: "blue.500",
                   }}
+                  onClick={register}
                 >
                   Sign up
                 </Button>

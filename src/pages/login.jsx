@@ -19,10 +19,31 @@ import {
 } from "@chakra-ui/react";
 import spiralImg from "../images/Vector.png";
 import Image from "next/image";
+import axios from "axios";
+import {toast} from 'react-toastify'
 
 export default function Login() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  
+
+  const login = async(e)=>{
+    e.preventDefault()
+    try {
+      const user = await axios.post('api/login', {
+        email,
+        password
+      })
+      console.log(user)
+      toast.success('Login successful')
+    } catch (error) {
+      const errorMessage = error.response.data
+      toast.error(errorMessage)
+      console.log(error.response.data)
+    }
+  }
   return (
     <>
       <Box bg={"#10062D"} position="relative">
@@ -62,6 +83,8 @@ export default function Login() {
                   <Input
                     type="email"
                     size={"lg"}
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
                     placeholder="Username or E-mail"
                     _placeholder={{ color: "#C5C0C0" }}
                     color={"white"}
@@ -78,6 +101,8 @@ export default function Login() {
                     <Input
                       type={show ? "text" : "password"}
                       placeholder="Password"
+                      value={password}
+                      onChange={(e)=>setPassword(e.target.value)}
                       _placeholder={{ color: "#C5C0C0" }}
                       color={"white"}
                     />
@@ -85,6 +110,9 @@ export default function Login() {
                       <Button h="1.75rem" size="sm" onClick={handleClick}>
                         {show ? "Hide" : "Show"}
                       </Button>
+
+
+
                     </InputRightElement>
                   </InputGroup>
                 </FormControl>
@@ -97,6 +125,7 @@ export default function Login() {
                     }}
                     size={"lg"}
                     width={"200px"}
+                    onClick={login}
                   >
                     Login
                   </Button>{" "}
