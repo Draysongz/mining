@@ -79,10 +79,17 @@ export default function IndexSidebar() {
           bg={useColorModeValue("auto", "gray.800")}
         >
           <Stack
-            direction={{ base: "column", sm: "row" }}
-            alignItems="center"
-            justifyContent="center"
-            h="100%"
+            spacing={4}
+            w={"full"}
+            bg={useColorModeValue("white", "gray.700")}
+            rounded={"xl"}
+            boxShadow={"lg"}
+            p={6}
+            my={4}
+            // direction={{ base: "column", sm: "row" }}
+            // alignItems="center"
+            // justifyContent="center"
+            // h="100%"
           >
             <Stack spacing={8}>
               <Box>
@@ -142,7 +149,7 @@ const SidebarContent = ({ ...props }) => (
     w="60"
     {...props}
   >
-    <Flex px="4" py="5" align="center">
+    <Flex px="10" py="5" align="center">
       <Icon as={RiFlashlightFill} h={8} w={8} />
       <Text
         fontSize="2xl"
@@ -186,6 +193,7 @@ const NavItem = (props) => {
         bg: useColorModeValue("gray.100", "gray.900"),
         color: useColorModeValue("gray.900", "gray.200"),
       }}
+      rounded={"lg"}
     >
       {icon && (
         <Icon

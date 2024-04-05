@@ -1,333 +1,604 @@
-// Import necessary modules and components for the AiSidebar component.
-// Import various components and icons from Chakra UI and other packages.
-// These components and icons will be used to build the sidebar and its content.
-import { useState } from "react";
+import React, { useState } from "react";
 import {
-  Avatar,
-  Box,
   Flex,
-  Icon,
-  Text,
-  Stack,
-  Button,
-  Drawer,
-  DrawerContent,
-  IconButton,
-  useDisclosure,
-  DrawerOverlay,
-  useColorModeValue,
-  Card,
-  CardHeader,
-  CardBody,
-  // Image,
   Heading,
-  Editable,
-  EditableInput,
-  EditableTextarea,
-  EditablePreview,
-  Form,
-  FormControl,
+  Avatar,
+  AvatarGroup,
+  Text,
+  Icon,
+  IconButton,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Divider,
+  Link,
+  Box,
+  Button,
   Input,
-  FormLabel,
   InputGroup,
-  InputRightElement,
-  CardFooter,
-  UnorderedList,
-  ListItem,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import {
-  ViewIcon,
-  ViewOffIcon,
-  ChevronDownIcon,
-  EditIcon,
-} from "@chakra-ui/icons";
-// Here we have used react-icons package for the icons
-import { TbLayoutBoard } from "react-icons/tb";
-import { FaBell } from "react-icons/fa";
-import { AiOutlineTeam, AiOutlineHome, AiOutlineTag } from "react-icons/ai";
-import { LuFiles } from "react-icons/lu";
-import { SiBookstack } from "react-icons/si";
-import {
-  BsFolder2,
-  BsCalendarCheck,
-  BsFillShareFill,
-  BsThreeDots,
-  BsWindowStack,
-} from "react-icons/bs";
-import { FiMenu } from "react-icons/fi";
-import { RiFlashlightFill } from "react-icons/ri";
-import knoweth from "../../images/knoweth.png";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { AiWriter } from "./aiWritter";
-import { Convo } from "./convo";
-import UpgradeCTA from "../UpgradeCTA";
+  FiHome,
+  FiPieChart,
+  FiDollarSign,
+  FiBox,
+  FiCalendar,
+  FiChevronDown,
+  FiChevronUp,
+  FiPlus,
+  FiCreditCard,
+  FiSearch,
+  FiBell,
+} from "react-icons/fi";
+import MyChart from "../components/MyChart";
 
-// Define the AiSidebar component as a functional component that takes input, input change handler,
-// submission handler, and messages as its props.
-export default function AiSidebar(
-  input,
-  handleInputChange,
-  handleSubmit,
-  messages
-) {
-  // Initialize state variables using useState from React.
-  const { isOpen, onClose, onOpen } = useDisclosure();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  return (
-    <Box
-      as="section"
-      bg={useColorModeValue("gray.50", "gray.700")}
-      minH="100vh"
-    >
-      <SidebarContent display={{ base: "none", md: "unset" }} />
-      <Drawer isOpen={isOpen} onClose={onClose} placement="left">
-        <DrawerOverlay />
-        <DrawerContent>
-          <SidebarContent w="full" borderRight="none" />
-        </DrawerContent>
-      </Drawer>
-
-      <Box ml={{ base: 0, md: 60 }} transition=".3s ease">
-        <Flex
-          as="header"
-          align="center"
-          justify={{ base: "space-between", md: "flex-end" }}
-          w="full"
-          px="4"
-          borderBottomWidth="1px"
-          borderColor={useColorModeValue("inherit", "gray.700")}
-          bg={useColorModeValue("white", "gray.800")}
-          boxShadow="sm"
-          h="14"
-        >
-          <IconButton
-            aria-label="Menu"
-            display={{ base: "inline-flex", md: "none" }}
-            onClick={onOpen}
-            icon={<FiMenu />}
-            size="md"
-          />
-
-          <Flex align="center">
-            <Icon color="gray.500" as={FaBell} cursor="pointer" />
-            <Avatar
-              ml="4"
-              size="sm"
-              name="Ahmad"
-              src="https://avatars2.githubusercontent.com/u/37842853?v=4"
-              cursor="pointer"
-            />
-          </Flex>
-        </Flex>{" "}
-        <UpgradeCTA />
-        <Box
-          as="main"
-          p={14}
-          minH="25rem"
-          bg={useColorModeValue("auto", "gray.800")}
-        >
-          {/* Components like AiWriter and others can be rendered here */}
-
-          <AiWriter {...(input, handleInputChange, handleSubmit, messages)} />
-          {/* <Stack
-            spacing={4}
-            bg={useColorModeValue("white", "gray.700")}
-            rounded={"xl"}
-            boxShadow={"lg"}
-            p={10}
-            my={4}
-            direction={"row"}
-          >
-            {" "}
-            <Flex
-              // as="side-bar"
-              bg="#0066B2"
-              h={"100vh"}
-              w="244px"
-              direction="column"
-              justifyContent={"space-between"}
-            >
-              <Button
-                border={"solid 0.5px rgba(255, 255, 255, 0.5)"}
-                bg="transparent"
-                borderRadius="5px"
-                p="10px"
-                m="10px"
-              >
-                + New Chat
-              </Button>
-              <UnorderedList p="10px" m="10px" h={"100%"}>
-                <ListItem listStyleType={"none"} p="15px 0" cursor={"pointer"}>
-                  BLUGH
-                </ListItem>
-              </UnorderedList>
-              <Flex
-                borderTop={"solid 0.5px rgba(255, 255, 255, 0.5)"}
-                p="10px"
-                m="10px"
-              >
-                <Text color="white">Made by ovpn</Text>
-              </Flex>
-            </Flex>
-            <Flex
-              h={"100vh"}
-              w="100%"
-              direction={"column"}
-              justifyContent="space-between"
-              alignItems="center"
-              textAlign="center"
-            >
-              <Heading>AI Writer</Heading>
-              <UnorderedList></UnorderedList>
-              <Stack>
-                <Flex
-                  w="100%"
-                  flexDirection="column"
-                  justifyContent={"center"}
-                  alignItems="center"
-                >
-                  {" "}
-                  <FormControl
-                    onSubmit={handleSubmit}
-                    pos={"relative"}
-                    w="100%"
-                    maxW="650px"
-                  >
-                    <Input
-                      value={input}
-                      onChange={handleInputChange}
-                      placeholder="What&rsquo;s on your mind?"
-                      w="100%"
-                      borderRadius="5px"
-                      p="12px 15px"
-                      bg="rgba(255,255,255,0.05)"
-                      boxShadow="rgba(0,0,0,0.05) 0 54px 55px, rgba(0,0,0,0.05) 0 -12px 30px, rgba(0,0,0,0.05) 0 4px 6px, rgba(0,0,0,0.05) 0 12px 3px, rgba(0,0,0,0.05) 0 -3px 5px"
-                    />{" "}
-                    <Button
-                      colorScheme="teal"
-                      type="submit"
-                      pos="absolute"
-                      right="0"
-                    >
-                      &gt;
-                    </Button>
-                  </FormControl>
-                </Flex>
-
-                <Text color="gray.400" fontSize="11px" p="10px">
-                  Free Research Preview. Ai Writer may produce inaccurate
-                  information about people, places, or facts. Ai Writer
-                  September 25 Version
-                </Text>
-              </Stack>
-            </Flex>
-          </Stack> */}
-        </Box>
-      </Box>
-    </Box>
-  );
-}
-
-// SidebarContent component for rendering the sidebar navigation.
-const SidebarContent = ({ ...props }) => {
-  const router = useRouter();
-  return (
-    <Box
-      as="nav"
-      pos="fixed"
-      top="0"
-      left="0"
-      zIndex="sticky"
-      h="full"
-      pb="10"
-      overflowX="hidden"
-      overflowY="auto"
-      bg={useColorModeValue("white", "gray.800")}
-      borderColor={useColorModeValue("inherit", "gray.700")}
-      borderRightWidth="1px"
-      w="60"
-      {...props}
-    >
-      <Flex px="10" py="5" align="center">
-        <Link href="/">
-          <Image src={knoweth} alt="logo" />
-        </Link>
-      </Flex>
-      <Flex
-        direction="column"
-        as="nav"
-        fontSize="md"
-        color="gray.600"
-        aria-label="Main Navigation"
-      >
-        <NavItem icon={TbLayoutBoard}>Board</NavItem>
-        <NavItem icon={TbLayoutBoard}>
-          <Link href="/admin/userDash">Card</Link>
-        </NavItem>
-        <NavItem icon={BsWindowStack}>Cover</NavItem>
-        <NavItem icon={AiOutlineTag}>Labels</NavItem>
-        <NavItem icon={LuFiles}>Files</NavItem>
-        <NavItem icon={SiBookstack}>Records</NavItem>
-
-        {/* <Menu>
-          <MenuButton
-            as={Button}
-            variant="ghost"
-            rightIcon={<ChevronDownIcon />}
-          >
-            <NavItem icon={BsFolder2}> Settings</NavItem>
-          </MenuButton>
-          <MenuList>
-            <MenuItem onClick={() => router.push("/profileDash")}>
-              Profile
-            </MenuItem>
-            <MenuItem>Change Password</MenuItem>
-          </MenuList>
-        </Menu>
-        <NavItem icon={BsCalendarCheck}>Support</NavItem>
-        <NavItem icon={BsCalendarCheck}>Logout</NavItem> */}
-      </Flex>
-    </Box>
-  );
-};
-
-// NavItem component for rendering individual navigation links.
-const NavItem = (props) => {
-  const color = useColorModeValue("gray.600", "gray.300");
-
-  const { icon, children } = props;
+export default function Dashboard() {
+  const [display, changeDisplay] = useState("hide");
+  const [value, changeValue] = useState(1);
   return (
     <Flex
-      align="center"
-      px="4"
-      py="3"
-      cursor="pointer"
-      role="group"
-      fontWeight="semibold"
-      transition=".15s ease"
-      color={useColorModeValue("gray.900", "gray.400")}
-      _hover={{
-        bg: useColorModeValue("#0066B2", "gray.900"),
-        color: useColorModeValue("gray.900", "gray.200"),
-      }}
-      rounded={"lg"}
+      h={[null, null, "100vh"]}
+      maxW="2000px"
+      flexDir={["column", "column", "row"]}
+      overflow="hidden"
     >
-      {icon && (
-        <Icon
-          mx="2"
-          boxSize="4"
-          _groupHover={{
-            color: color,
-          }}
-          as={icon}
-        />
-      )}
-      {children}
+      {/* Column 1 */}
+      <Flex
+        w={["100%", "100%", "10%", "15%", "15%"]}
+        flexDir="column"
+        alignItems="center"
+        backgroundColor="#020202"
+        color="#fff"
+      >
+        <Flex
+          flexDir="column"
+          h={[null, null, "100vh"]}
+          justifyContent="space-between"
+        >
+          <Flex flexDir="column" as="nav">
+            <Heading
+              mt={50}
+              mb={[25, 50, 100]}
+              fontSize={["4xl", "4xl", "2xl", "3xl", "4xl"]}
+              alignSelf="center"
+              letterSpacing="tight"
+            >
+              Rise.
+            </Heading>
+            <Flex
+              flexDir={["row", "row", "column", "column", "column"]}
+              align={["center", "center", "center", "flex-start", "flex-start"]}
+              wrap={["wrap", "wrap", "nowrap", "nowrap", "nowrap"]}
+              justifyContent="center"
+            >
+              <Flex className="sidebar-items" mr={[2, 6, 0, 0, 0]}>
+                <Link display={["none", "none", "flex", "flex", "flex"]}>
+                  <Icon as={FiHome} fontSize="2xl" className="active-icon" />
+                </Link>
+                <Link
+                  _hover={{ textDecor: "none" }}
+                  display={["flex", "flex", "none", "flex", "flex"]}
+                >
+                  <Text className="active">Home</Text>
+                </Link>
+              </Flex>
+              <Flex className="sidebar-items" mr={[2, 6, 0, 0, 0]}>
+                <Link display={["none", "none", "flex", "flex", "flex"]}>
+                  <Icon as={FiPieChart} fontSize="2xl" />
+                </Link>
+                <Link
+                  _hover={{ textDecor: "none" }}
+                  display={["flex", "flex", "none", "flex", "flex"]}
+                >
+                  <Text>Credit</Text>
+                </Link>
+              </Flex>
+              <Flex className="sidebar-items" mr={[2, 6, 0, 0, 0]}>
+                <Link display={["none", "none", "flex", "flex", "flex"]}>
+                  <Icon as={FiDollarSign} fontSize="2xl" />
+                </Link>
+                <Link
+                  _hover={{ textDecor: "none" }}
+                  display={["flex", "flex", "none", "flex", "flex"]}
+                >
+                  <Text>Wallet</Text>
+                </Link>
+              </Flex>
+              <Flex className="sidebar-items" mr={[2, 6, 0, 0, 0]}>
+                <Link display={["none", "none", "flex", "flex", "flex"]}>
+                  <Icon as={FiBox} fontSize="2xl" />
+                </Link>
+                <Link
+                  _hover={{ textDecor: "none" }}
+                  display={["flex", "flex", "none", "flex", "flex"]}
+                >
+                  <Text>Services</Text>
+                </Link>
+              </Flex>
+            </Flex>
+          </Flex>
+          <Flex flexDir="column" alignItems="center" mb={10} mt={5}>
+            <Avatar my={2} src="avatar-1.jpg" />
+            <Text textAlign="center">Calvin West</Text>
+          </Flex>
+        </Flex>
+      </Flex>
+
+      {/* Column 2 */}
+      <Flex
+        w={["100%", "100%", "60%", "60%", "55%"]}
+        p="3%"
+        flexDir="column"
+        overflow="auto"
+        minH="100vh"
+      >
+        <Heading fontWeight="normal" mb={4} letterSpacing="tight">
+          Welcome back,{" "}
+          <Flex display="inline-flex" fontWeight="bold">
+            Calvin
+          </Flex>
+        </Heading>
+        <Text color="gray" fontSize="sm">
+          My Balance
+        </Text>
+        <Text fontWeight="bold" fontSize="2xl">
+          $5,750.20
+        </Text>
+        <MyChart />
+        <Flex justifyContent="space-between" mt={8}>
+          <Flex align="flex-end">
+            <Heading as="h2" size="lg" letterSpacing="tight">
+              Transactions
+            </Heading>
+            <Text fontSize="small" color="gray" ml={4}>
+              Apr 2021
+            </Text>
+          </Flex>
+          <IconButton icon={<FiCalendar />} />
+        </Flex>
+        <Flex flexDir="column">
+          <Flex overflow="auto">
+            <Table variant="unstyled" mt={4}>
+              <Thead>
+                <Tr color="gray">
+                  <Th>Name of transaction</Th>
+                  <Th>Category</Th>
+                  <Th isNumeric>Cashback</Th>
+                  <Th isNumeric>Amount</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                <Tr>
+                  <Td>
+                    <Flex align="center">
+                      <Avatar size="sm" mr={2} src="amazon.jpeg" />
+                      <Flex flexDir="column">
+                        <Heading size="sm" letterSpacing="tight">
+                          Amazon
+                        </Heading>
+                        <Text fontSize="sm" color="gray">
+                          Apr 24, 2021 at 1:40pm
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Td>
+                  <Td>Electronic Devices</Td>
+                  <Td isNumeric>+$2</Td>
+                  <Td isNumeric>
+                    <Text fontWeight="bold" display="inline-table">
+                      -$242
+                    </Text>
+                    .00
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex align="center">
+                      <Avatar size="sm" mr={2} src="starbucks.png" />
+                      <Flex flexDir="column">
+                        <Heading size="sm" letterSpacing="tight">
+                          Starbucks
+                        </Heading>
+                        <Text fontSize="sm" color="gray">
+                          Apr 22, 2021 at 2:43pm
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Td>
+                  <Td>Cafe and restaurant</Td>
+                  <Td isNumeric>+$23</Td>
+                  <Td isNumeric>
+                    <Text fontWeight="bold" display="inline-table">
+                      -$32
+                    </Text>
+                    .00
+                  </Td>
+                </Tr>
+                <Tr>
+                  <Td>
+                    <Flex align="center">
+                      <Avatar size="sm" mr={2} src="youtube.png" />
+                      <Flex flexDir="column">
+                        <Heading size="sm" letterSpacing="tight">
+                          YouTube
+                        </Heading>
+                        <Text fontSize="sm" color="gray">
+                          Apr 13, 2021 at 11:23am
+                        </Text>
+                      </Flex>
+                    </Flex>
+                  </Td>
+                  <Td>Social Media</Td>
+                  <Td isNumeric>+$4</Td>
+                  <Td isNumeric>
+                    <Text fontWeight="bold" display="inline-table">
+                      -$112
+                    </Text>
+                    .00
+                  </Td>
+                </Tr>
+                {display == "show" && (
+                  <>
+                    <Tr>
+                      <Td>
+                        <Flex align="center">
+                          <Avatar size="sm" mr={2} src="amazon.jpeg" />
+                          <Flex flexDir="column">
+                            <Heading size="sm" letterSpacing="tight">
+                              Amazon
+                            </Heading>
+                            <Text fontSize="sm" color="gray">
+                              Apr 12, 2021 at 9:40pm
+                            </Text>
+                          </Flex>
+                        </Flex>
+                      </Td>
+                      <Td>Electronic Devices</Td>
+                      <Td isNumeric>+$2</Td>
+                      <Td isNumeric>
+                        <Text fontWeight="bold" display="inline-table">
+                          -$242
+                        </Text>
+                        .00
+                      </Td>
+                    </Tr>
+                    <Tr>
+                      <Td>
+                        <Flex align="center">
+                          <Avatar size="sm" mr={2} src="starbucks.png" />
+                          <Flex flexDir="column">
+                            <Heading size="sm" letterSpacing="tight">
+                              Starbucks
+                            </Heading>
+                            <Text fontSize="sm" color="gray">
+                              Apr 10, 2021 at 2:10pm
+                            </Text>
+                          </Flex>
+                        </Flex>
+                      </Td>
+                      <Td>Cafe and restaurant</Td>
+                      <Td isNumeric>+$23</Td>
+                      <Td isNumeric>
+                        <Text fontWeight="bold" display="inline-table">
+                          -$32
+                        </Text>
+                        .00
+                      </Td>
+                    </Tr>
+                    <Tr>
+                      <Td>
+                        <Flex align="center">
+                          <Avatar size="sm" mr={2} src="youtube.png" />
+                          <Flex flexDir="column">
+                            <Heading size="sm" letterSpacing="tight">
+                              YouTube
+                            </Heading>
+                            <Text fontSize="sm" color="gray">
+                              Apr 7, 2021 at 9:03am
+                            </Text>
+                          </Flex>
+                        </Flex>
+                      </Td>
+                      <Td>Social Media</Td>
+                      <Td isNumeric>+$4</Td>
+                      <Td isNumeric>
+                        <Text fontWeight="bold" display="inline-table">
+                          -$112
+                        </Text>
+                        .00
+                      </Td>
+                    </Tr>
+                  </>
+                )}
+              </Tbody>
+            </Table>
+          </Flex>
+          <Flex align="center">
+            <Divider />
+            <IconButton
+              icon={display == "show" ? <FiChevronUp /> : <FiChevronDown />}
+              onClick={() => {
+                if (display == "show") {
+                  changeDisplay("none");
+                } else {
+                  changeDisplay("show");
+                }
+              }}
+            />
+            <Divider />
+          </Flex>
+        </Flex>
+      </Flex>
+
+      {/* Column 3 */}
+      <Flex
+        w={["100%", "100%", "30%"]}
+        bgColor="#F5F5F5"
+        p="3%"
+        flexDir="column"
+        overflow="auto"
+        minW={[null, null, "300px", "300px", "400px"]}
+      >
+        <Flex alignContent="center">
+          <InputGroup
+            bgColor="#fff"
+            mb={4}
+            border="none"
+            borderColor="#fff"
+            borderRadius="10px"
+            mr={2}
+          >
+            <InputLeftElement
+              pointerEvents="none"
+              children={<FiSearch color="gray" />}
+            />
+            <Input type="number" placeholder="Search" borderRadius="10px" />
+          </InputGroup>
+          <IconButton
+            icon={<FiBell />}
+            fontSize="sm"
+            bgColor="#fff"
+            borderRadius="50%"
+            p="10px"
+          />
+          <Flex
+            w={30}
+            h={25}
+            bgColor="#B57295"
+            borderRadius="50%"
+            color="#fff"
+            align="center"
+            justify="center"
+            ml="-3"
+            mt="-2"
+            zIndex="100"
+            fontSize="xs"
+          >
+            2
+          </Flex>
+        </Flex>
+        <Heading letterSpacing="tight">My Cards</Heading>
+        {value == 1 && (
+          <Box
+            borderRadius="25px"
+            mt={4}
+            w="100%"
+            h="200px"
+            bgGradient="linear(to-t, #B57295, #29259A)"
+          >
+            <Flex
+              p="1em"
+              color="#fff"
+              flexDir="column"
+              h="100%"
+              justify="space-between"
+            >
+              <Flex justify="space-between" w="100%" align="flex-start">
+                <Flex flexDir="column">
+                  <Text color="gray.400">Current Balance</Text>
+                  <Text fontWeight="bold" fontSize="xl">
+                    $5,750.20
+                  </Text>
+                </Flex>
+                <Flex align="center">
+                  <Icon mr={2} as={FiCreditCard} />
+                  <Text>Rise.</Text>
+                </Flex>
+              </Flex>
+              <Text mb={4}>**** **** **** 1289</Text>
+              <Flex align="flex-end" justify="space-between">
+                <Flex>
+                  <Flex flexDir="column" mr={4}>
+                    <Text textTransform="uppercase" fontSize="xs">
+                      Valid Thru
+                    </Text>
+                    <Text fontSize="lg">12/23</Text>
+                  </Flex>
+                  <Flex flexDir="column">
+                    <Text textTransform="uppercase" fontSize="xs">
+                      CVV
+                    </Text>
+                    <Text fontSize="lg">***</Text>
+                  </Flex>
+                </Flex>
+                <Icon as={FiCreditCard} />
+              </Flex>
+            </Flex>
+          </Box>
+        )}
+        {value == 2 && (
+          <Box
+            borderRadius="25px"
+            mt={4}
+            w="100%"
+            h="200px"
+            bgGradient="linear(to-t, yellow.300, blue.500)"
+          >
+            <Flex
+              p="1em"
+              color="#fff"
+              flexDir="column"
+              h="100%"
+              justify="space-between"
+            >
+              <Flex justify="space-between" w="100%" align="flex-start">
+                <Flex flexDir="column">
+                  <Text color="gray.400">Current Balance</Text>
+                  <Text fontWeight="bold" fontSize="xl">
+                    $350.00
+                  </Text>
+                </Flex>
+                <Flex align="center">
+                  <Icon mr={2} as={FiCreditCard} />
+                  <Text>Rise.</Text>
+                </Flex>
+              </Flex>
+              <Text mb={4}>**** **** **** 8956</Text>
+              <Flex align="flex-end" justify="space-between">
+                <Flex>
+                  <Flex flexDir="column" mr={4}>
+                    <Text textTransform="uppercase" fontSize="xs">
+                      Valid Thru
+                    </Text>
+                    <Text fontSize="lg">9/24</Text>
+                  </Flex>
+                  <Flex flexDir="column">
+                    <Text textTransform="uppercase" fontSize="xs">
+                      CVV
+                    </Text>
+                    <Text fontSize="lg">***</Text>
+                  </Flex>
+                </Flex>
+                <Icon as={FiCreditCard} />
+              </Flex>
+            </Flex>
+          </Box>
+        )}
+        {value == 3 && (
+          <Box
+            borderRadius="25px"
+            mt={4}
+            w="100%"
+            h="200px"
+            bgGradient="linear(to-t, orange.300, pink.600)"
+          >
+            <Flex
+              p="1em"
+              color="#fff"
+              flexDir="column"
+              h="100%"
+              justify="space-between"
+            >
+              <Flex justify="space-between" w="100%" align="flex-start">
+                <Flex flexDir="column">
+                  <Text color="gray.400">Current Balance</Text>
+                  <Text fontWeight="bold" fontSize="xl">
+                    $2,150.72
+                  </Text>
+                </Flex>
+                <Flex align="center">
+                  <Icon mr={2} as={FiCreditCard} />
+                  <Text>Rise.</Text>
+                </Flex>
+              </Flex>
+              <Text mb={4}>**** **** **** 8353</Text>
+              <Flex align="flex-end" justify="space-between">
+                <Flex>
+                  <Flex flexDir="column" mr={4}>
+                    <Text textTransform="uppercase" fontSize="xs">
+                      Valid Thru
+                    </Text>
+                    <Text fontSize="lg">11/22</Text>
+                  </Flex>
+                  <Flex flexDir="column">
+                    <Text textTransform="uppercase" fontSize="xs">
+                      CVV
+                    </Text>
+                    <Text fontSize="lg">***</Text>
+                  </Flex>
+                </Flex>
+                <Icon as={FiCreditCard} />
+              </Flex>
+            </Flex>
+          </Box>
+        )}
+        <Flex justifyContent="center" mt={2}>
+          <Button
+            bgColor={value == 1 ? "gray.600" : "gray.400"}
+            size="xs"
+            mx={1}
+            onClick={() => changeValue(1)}
+          />
+          <Button
+            bgColor={value == 2 ? "gray.600" : "gray.400"}
+            size="xs"
+            mx={1}
+            onClick={() => changeValue(2)}
+          />
+          <Button
+            bgColor={value == 3 ? "gray.600" : "gray.400"}
+            size="xs"
+            mx={1}
+            onClick={() => changeValue(3)}
+          />
+        </Flex>
+        <Flex flexDir="column" my={4}>
+          <Flex justify="space-between" mb={2}>
+            <Text>Balance</Text>
+            <Text fontWeight="bold">$140.42</Text>
+          </Flex>
+          <Flex justify="space-between">
+            <Text>Credit Limit</Text>
+            <Text fontWeight="bold">$150.00</Text>
+          </Flex>
+        </Flex>
+        <Heading letterSpacing="tight" size="md" my={4}>
+          Send money to
+        </Heading>
+        <Flex>
+          <AvatarGroup size="md" max={3}>
+            <Avatar src="avatar-2.jpg" />
+            <Avatar src="avatar-3.jpg" />
+            <Avatar src="avatar-4.jpg" />
+            <Avatar src="avatar-4.jpg" />
+            <Avatar src="avatar-4.jpg" />
+          </AvatarGroup>
+          <Avatar icon={<FiPlus />} ml={2} color="#fff" bgColor="gray.300" />
+        </Flex>
+        <Text color="gray" mt={10} mb={2}>
+          Card number
+        </Text>
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<FiCreditCard color="gray.700" />}
+          />
+          <Input type="number" placeholder="xxxx xxxx xxxx xxxx" />
+        </InputGroup>
+        <Text color="gray" mt={4} mb={2}>
+          Sum
+        </Text>
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<FiDollarSign color="gray.700" />}
+          />
+          <Input type="number" placeholder="130.00" />
+        </InputGroup>
+        <Button
+          mt={4}
+          bgColor="blackAlpha.900"
+          color="#fff"
+          p={7}
+          borderRadius={15}
+        >
+          Send money
+        </Button>
+      </Flex>
     </Flex>
   );
-};
+}
