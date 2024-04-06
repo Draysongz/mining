@@ -9,9 +9,6 @@ import {
   TabPanels,
   Tabs,
   Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
   SimpleGrid,
   Heading,
   Text,
@@ -21,8 +18,19 @@ import {
 } from "@chakra-ui/react";
 import NextImage from "next/image";
 import Rec1 from "../../images/Rectangle 4 (1).png";
+import Rec2 from "../../images/Rectangle 4 (2).png";
+import Rec from "../../images/Rectangle 4.png";
+
+import Carousel from "./carousel";
 
 export default function DashTab() {
+  const cardData = [
+    { src: Rec, title: "The Zenith\nCollection", text: "5,000 NFTS" },
+    { src: Rec1, title: "The Oasis\nCollection", text: "5,000 NFTS" },
+    { src: Rec2, title: "The Aurora\nCollection", text: "5,000 NFTS" },
+    { src: Rec2, title: "Zenith 2.0\nCollection", text: "5,000 NFTS" },
+    // Add more card data objects as needed
+  ];
   return (
     <>
       <Flex p={5}>
@@ -34,99 +42,36 @@ export default function DashTab() {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <Flex>
-                <SimpleGrid
-                  gap={"5"}
-                  columns={{ base: 1, sm: 2, md: 2, lg: 4 }}
-                >
-                  <Card rounded={"2xl"} size="md" position="relative">
+              <SimpleGrid
+                gap={5}
+                columns={{ base: 1, sm: 2, md: 2, lg: 4 }}
+                direction={{ base: "column", sm: "row" }}
+              >
+                {cardData.map((card) => (
+                  <Card
+                    rounded={"2xl"}
+                    size="md"
+                    position="relative"
+                    key={card.src}
+                  >
                     <Image
                       as={NextImage}
-                      src={Rec1}
+                      src={card.src}
                       placeholder="blur"
                       quality={100}
                       fill
                       sizes="100vw"
-                      style={{
-                        objectFit: "cover",
-                      }}
+                      style={{ objectFit: "cover" }}
                     />
                     <Stack color={"white"} p={2} pos="absolute">
-                      <Text fontSize={"xs"}>5,000 NFTS</Text>
-                      <Text fontSize={"2xl"}>The Zenith Collection</Text>
+                      <Text fontSize={"xs"}>{card.text}</Text>
+                      <Text fontSize={"2xl"} whiteSpace="pre-wrap">
+                        {card.title}
+                      </Text>
                     </Stack>
                   </Card>
-                  <Card rounded={"2xl"} size="sm" position="relative">
-                    <Image
-                      as={NextImage}
-                      src={Rec1}
-                      placeholder="blur"
-                      quality={100}
-                      fill
-                      sizes="100vw"
-                      style={{
-                        objectFit: "cover",
-                      }}
-                    />
-                    <Stack color={"white"} p={2} pos="absolute">
-                      <Text fontSize={"xs"}>5,000 NFTS</Text>
-                      <Text fontSize={"2xl"}>The Zenith Collection</Text>
-                    </Stack>
-                  </Card>
-                  <Card rounded={"2xl"} size="sm" position="relative">
-                    <Image
-                      as={NextImage}
-                      src={Rec1}
-                      placeholder="blur"
-                      quality={100}
-                      fill
-                      sizes="100vw"
-                      style={{
-                        objectFit: "cover",
-                      }}
-                    />
-                    <Stack color={"white"} p={2} pos="absolute">
-                      <Text fontSize={"xs"}>5,000 NFTS</Text>
-                      <Text fontSize={"2xl"}>The Zenith Collection</Text>
-                    </Stack>
-                  </Card>
-                  <Card rounded={"2xl"} size="sm" position="relative">
-                    <Image
-                      as={NextImage}
-                      src={Rec1}
-                      placeholder="blur"
-                      quality={100}
-                      fill
-                      sizes="100vw"
-                      style={{
-                        objectFit: "cover",
-                      }}
-                    />
-                    <Stack color={"white"} p={2} pos="absolute">
-                      <Text fontSize={"xs"}>5,000 NFTS</Text>
-                      <Text fontSize={"2xl"}>The Zenith Collection</Text>
-                    </Stack>
-                  </Card>
-                  {/* <Card>
-                    <CardBody rounded={"lg"}>
-                      <Image
-                        src={Rec1}
-                        placeholder="blur"
-                        quality={100}
-                        fill
-                        sizes="100vw"
-                        style={{
-                          objectFit: "cover",
-                        }}
-                      />
-                      <Stack color={"white"} position="absolute">
-                        <Text>5,000 NFTS</Text>
-                        <Text>The Zenith Collection</Text>
-                      </Stack>
-                    </CardBody>
-                  </Card> */}
-                </SimpleGrid>
-              </Flex>
+                ))}
+              </SimpleGrid>
             </TabPanel>
             <TabPanel></TabPanel>
             <TabPanel></TabPanel>

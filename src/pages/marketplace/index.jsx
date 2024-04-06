@@ -1,4 +1,3 @@
-import IndexSidebar from "@/components/sidebar";
 import {
   Stack,
   Box,
@@ -17,9 +16,7 @@ import { IoHome } from "react-icons/io5";
 import { FaCartArrowDown } from "react-icons/fa";
 import { CiMoneyBill } from "react-icons/ci";
 import { MdGroups } from "react-icons/md";
-import TopWidget from "@/components/Dashboard/topWidget";
-import MidWidget from "@/components/Dashboard/midWidget";
-import BtmWidget from "@/components/Dashboard/btmWidget";
+import IndexSidebar from "@/components/sidebar";
 
 export default function () {
   const navData = [
@@ -31,7 +28,6 @@ export default function () {
   return (
     <>
       <Box>
-        {/* <IndexSidebar /> */}
         <Flex>
           <Navbar />
         </Flex>
@@ -49,12 +45,10 @@ export default function () {
             spacing={5}
             p={5}
           >
-            {/* Top Section */}
-            <TopWidget />
-            {/* Mid Section */}
-            <MidWidget />
-            {/* Bottom Section */}
-            <BtmWidget />
+            {/* Tab Section */}
+            <DashTab />
+            {/* Card Section */}
+            <CardComponent />
           </Stack>
         </Flex>
       </Box>
