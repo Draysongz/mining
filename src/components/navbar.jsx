@@ -17,20 +17,11 @@ import {
   MenuDivider,
   useColorModeValue,
   Flex,
-  IconButton,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Lorem,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ReactNode } from "react";
-import { IoMdAdd } from "react-icons/io";
+
+import CModal from "./Dashboard/createModal";
 
 // const IconButton = ({ children }) => {
 //   return (
@@ -48,8 +39,6 @@ import { IoMdAdd } from "react-icons/io";
 // };
 
 export default function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <Box
       py="2"
@@ -83,30 +72,7 @@ export default function Navbar() {
             <Spacer />
             <HStack spacing={3}>
               <>
-                <IconButton
-                  bg="#3b49df"
-                  color="white"
-                  _hover="inherit"
-                  onClick={onOpen}
-                  icon={<IoMdAdd />}
-                ></IconButton>
-                {/* <Modal isOpen={isOpen} onClose={onClose}>
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                      <Lorem count={2} />
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button colorScheme="blue" mr={3} onClick={onClose}>
-                        Close
-                      </Button>
-                      <Button variant="ghost">Secondary Action</Button>
-                    </ModalFooter>
-                  </ModalContent>
-                </Modal> */}
+                <CModal />
               </>
 
               <Button
