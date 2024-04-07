@@ -16,6 +16,8 @@ import Rec1 from "../../images/Rectangle 4 (1).png";
 import Rec2 from "../../images/Rectangle 4 (2).png";
 import Rec from "../../images/Rectangle 4.png";
 import { FaChartPie } from "react-icons/fa";
+import { MonthChart } from "./chart";
+import { IoMdArrowDropup } from "react-icons/io";
 
 export default function MidWidget() {
   const cardData = [
@@ -47,12 +49,17 @@ export default function MidWidget() {
               </Box>
             </Flex>
 
-            <Stack color={"white"} p={2}>
-              {/* <Text fontSize={"xs"}>{card.text}</Text>
-              <Text fontSize={"2xl"} whiteSpace="pre-wrap">
-                {card.title}
-              </Text> */}
-            </Stack>
+            <HStack color={"white"} p={2} justify="space-between">
+              <Stack w={"30%"}>
+                <Heading>$15.6K</Heading>
+                <Text>Total Spent</Text>
+                <Flex align={"center"}>
+                  <IoMdArrowDropup color={"#00D87D"} />
+                  <Text color={"#00D87D"}>+2.45%</Text>
+                </Flex>
+              </Stack>
+              <MonthChart />
+            </HStack>
           </Card>
         ))}
       </SimpleGrid>
