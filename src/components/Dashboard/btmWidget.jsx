@@ -22,14 +22,19 @@ export default function BtmWidget() {
             rounded={"2xl"}
             key={card.src}
             border="2px solid #301287"
-            bg="#10062D"
+            bg="#301287"
+            px={6}
+            py={4}
+            height={"300px"}
           >
             <Flex justify="space-between">
               <Flex>
-                <Text color={"white"}>{card.text}</Text>
+                <Text color={"white"} fontWeight={"500"}>
+                  {card.text}
+                </Text>
               </Flex>
-              <Box bg={"#EDE8FC"} rounded="full" p={2}>
-                <Icon boxSize={6} color={"#301287"} as={FaChartPie} />
+              <Box bg={"#EDE8FC"} rounded="full" p={1}>
+                <Icon boxSize={8} color={"#501EE1"} as={FaChartPie} />
               </Box>
             </Flex>
 

@@ -9,29 +9,17 @@ import {
   Text,
   Icon,
 } from "@chakra-ui/react";
-import CardComponent from "@/components/Dashboard/dashCard2";
-import DashTab from "@/components/Dashboard/dashTab";
 import Navbar from "@/components/navbar";
 import NextLink from "next/link";
-import { IoHome } from "react-icons/io5";
-import { FaCartArrowDown } from "react-icons/fa";
-import { CiMoneyBill } from "react-icons/ci";
-import { MdGroups } from "react-icons/md";
 import TopWidget from "@/components/Dashboard/topWidget";
 import MidWidget from "@/components/Dashboard/midWidget";
 import BtmWidget from "@/components/Dashboard/btmWidget";
 
-export default function () {
-  const navData = [
-    { icon: IoHome, title: "My NFT", link: "/dashboard" },
-    { icon: FaCartArrowDown, title: "Marketplace", link: "/marketplace" },
-    { icon: CiMoneyBill, title: "Rewards", link: "/" },
-    { icon: MdGroups, title: "Referrals", link: "/" },
-  ];
+export default function dashboard() {
   return (
     <>
       <Box>
-        {/* <IndexSidebar /> */}
+        {/* Navbar */}
         <Flex>
           <Navbar />
         </Flex>
@@ -46,7 +34,7 @@ export default function () {
             bg={"#10062D"}
             color="#fff"
             borderLeft="2px solid #301287"
-            spacing={5}
+            spacing={10}
             p={5}
           >
             {/* Top Section */}

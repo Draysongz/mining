@@ -17,8 +17,9 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { CiMoneyBill } from "react-icons/ci";
 import { MdGroups } from "react-icons/md";
 import IndexSidebar from "@/components/sidebar";
+import Referrals from "@/components/Dashboard/referrals";
 
-export default function marketplace() {
+export default function referrals() {
   return (
     <>
       <Box>
@@ -40,10 +41,8 @@ export default function marketplace() {
             spacing={5}
             p={5}
           >
-            {/* Tab Section */}
-            <DashTab />
-            {/* Card Section */}
-            <CardComponent />
+            {/* Referrals Section */}
+            <Referrals />
           </Stack>
         </Flex>
       </Box>

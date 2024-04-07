@@ -48,12 +48,7 @@ export default function DashTab() {
                 direction={{ base: "column", sm: "row" }}
               >
                 {cardData.map((card) => (
-                  <Card
-                    rounded={"2xl"}
-                    size="md"
-                    position="relative"
-                    key={card.src}
-                  >
+                  <Card rounded={"2xl"} position="relative" key={card.src}>
                     <Image
                       as={NextImage}
                       src={card.src}
@@ -63,9 +58,17 @@ export default function DashTab() {
                       sizes="100vw"
                       style={{ objectFit: "cover" }}
                     />
-                    <Stack color={"white"} p={2} pos="absolute">
+                    <Stack color={"white"} p={5} pos="absolute">
                       <Text fontSize={"xs"}>{card.text}</Text>
-                      <Text fontSize={"2xl"} whiteSpace="pre-wrap">
+                      <Text
+                        fontSize={{
+                          base: "md",
+                          sm: "md",
+                          md: "lg",
+                          lg: "2xl",
+                        }}
+                        whiteSpace="pre-wrap"
+                      >
                         {card.title}
                       </Text>
                     </Stack>

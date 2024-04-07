@@ -17,28 +17,39 @@ import {
   MenuDivider,
   useColorModeValue,
   Flex,
-  Icon,
+  IconButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Lorem,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ReactNode } from "react";
 import { IoMdAdd } from "react-icons/io";
 
-const IconButton = ({ children }) => {
-  return (
-    <Button
-      padding="0.4rem"
-      width="auto"
-      height="auto"
-      borderRadius="100%"
-      bg="transparent"
-      _hover={{ bg: "#f6f6f6" }}
-    >
-      {children}
-    </Button>
-  );
-};
+// const IconButton = ({ children }) => {
+//   return (
+//     <Button
+//       padding="0.4rem"
+//       width="auto"
+//       height="auto"
+//       borderRadius="100%"
+//       bg="transparent"
+//       _hover={{ bg: "#f6f6f6" }}
+//     >
+//       {children}
+//     </Button>
+//   );
+// };
 
-const Navbar = () => {
+export default function Navbar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box
       py="2"
@@ -71,8 +82,32 @@ const Navbar = () => {
             />
             <Spacer />
             <HStack spacing={3}>
-              <IconButton />
-              <Icon as={IoMdAdd} bg="#3b49df" />
+              <>
+                <IconButton
+                  bg="#3b49df"
+                  color="white"
+                  _hover="inherit"
+                  onClick={onOpen}
+                  icon={<IoMdAdd />}
+                ></IconButton>
+                {/* <Modal isOpen={isOpen} onClose={onClose}>
+                  <ModalOverlay />
+                  <ModalContent>
+                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                      <Lorem count={2} />
+                    </ModalBody>
+
+                    <ModalFooter>
+                      <Button colorScheme="blue" mr={3} onClick={onClose}>
+                        Close
+                      </Button>
+                      <Button variant="ghost">Secondary Action</Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal> */}
+              </>
 
               <Button
                 as={NextLink}
@@ -149,6 +184,4 @@ const Navbar = () => {
       </Container>
     </Box>
   );
-};
-
-export default Navbar;
+}

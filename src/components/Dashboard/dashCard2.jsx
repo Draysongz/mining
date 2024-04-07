@@ -16,6 +16,7 @@ import nft1 from "../../images/Nft1.png";
 import nft2 from "../../images/Nft2.png";
 import nft3 from "../../images/Nft3.png";
 import NextImage from "next/image";
+import { IoMdList } from "react-icons/io";
 
 // Array of card data
 const nftData = [
@@ -35,7 +36,15 @@ const CardComponent = () => {
     <>
       <Flex direction={"column"} p={5} bg={"#10062D"}>
         <Flex p={5}>
-          <Button width={"100px"} size={"sm"}>
+          <Button
+            border="2px solid #301287"
+            width={"100px"}
+            size={"sm"}
+            variant="outline"
+            color="white"
+            leftIcon={<IoMdList />}
+            _hover="inherit"
+          >
             Filter
           </Button>
         </Flex>
@@ -55,26 +64,21 @@ const CardComponent = () => {
                 alt="NFT"
                 fill
               />
-              <CardFooter>
-                <Stack color="white">
-                  <Flex
-                    align="center"
-                    justify="space-between"
-                    w={{ base: "200px", sm: "150px", md: "200px", lg: "220px" }}
+
+              <Stack color="white" p={5}>
+                <Flex align={"start"} justify={"space-between"}>
+                  <Text>{nft.id}</Text>
+                  <Button
+                    bg="#301287"
+                    color="white"
+                    w="50px"
+                    _hover={{ bg: "#301287" }}
                   >
-                    <Text>{nft.id}</Text>
-                    <Button
-                      bg="#301287"
-                      color="white"
-                      w="50px"
-                      _hover={{ bg: "#301287" }}
-                    >
-                      Eth
-                    </Button>
-                  </Flex>
-                  <Text>{nft.title}</Text>
-                </Stack>
-              </CardFooter>
+                    Eth
+                  </Button>
+                </Flex>
+                <Text textAlign={"start"}>{nft.title}</Text>
+              </Stack>
             </Card>
           ))}
         </SimpleGrid>
