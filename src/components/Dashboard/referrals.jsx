@@ -1,3 +1,4 @@
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Flex, Heading, Stack, Text, Button } from "@chakra-ui/react";
 
 export default function Referrals() {
@@ -7,36 +8,62 @@ export default function Referrals() {
         <Stack p={5} spacing={10}>
           {/* 1st Section */}
           <Flex
-            border="2px solid #301287"
+            border="2px solid #FFFFFF"
             rounded={"2xl"}
-            p={5}
+            py={10}
+            px={5}
             align={"center"}
             justify={"space-between"}
+            gap={5}
+            flexDirection={{ base: "column", md: "row" }}
           >
-            <Flex>
-              <Text>Total Referral Bonus</Text>
-              <Text>₦0.00</Text>
-            </Flex>
-            <Flex>
+            <Stack p={5}>
+              <Text fontWeight={"400"}>Total Referral Bonus</Text>
+              <Text fontWeight={"700"} fontSize="3xl">
+                ₦0.00
+              </Text>
+            </Stack>
+            <Stack p={5}>
               <Text>Total Referrals</Text>
-              <Text>0</Text>
-            </Flex>
-            <Flex>
-              <Button>Share Referral Link</Button>
+              <Text fontWeight={"700"} fontSize="3xl">
+                0
+              </Text>
+            </Stack>
+            <Flex p={5}>
+              <Button
+                bg="#301287"
+                color={"ffffff"}
+                rightIcon={<ArrowForwardIcon />}
+              >
+                Share Referral Link
+              </Button>
             </Flex>
           </Flex>
           {/* 2nd Section */}
-          <Flex align={"center"} justify={"space-between"}>
-            <Heading>Refer Friends & Get Rewarded!</Heading>
-            <Text>
+          <Stack alignContent={"center"} justify="center">
+            {" "}
+            <Heading fontSize={"md"} textAlign="center">
+              Refer Friends & Get Rewarded!
+            </Heading>
+            <Text whiteSpace={"pre-wrap"} textAlign="center">
               Get rewarded for sharing xxxxx with your friends. Invite them by
               using your unique code BLOCKCHAINBEAST link below.
             </Text>
-          </Flex>
+          </Stack>
+          <Flex></Flex>
           {/* 3rd Section */}
-          <Flex>
+          <Flex
+            align={"center"}
+            justify={"space-around"}
+            bg="#301287"
+            borderRadius={"lg"}
+            border="2px solid #301287"
+            height={"70px"}
+          >
             <Text>https://app.xxxxx.com/s/BLOCKCHAINBEAST</Text>
-            <Button>Copy</Button>
+            <Button bg="#501EE1" color={"#FFFFFF"}>
+              Copy
+            </Button>
           </Flex>
         </Stack>
       </Flex>
