@@ -33,18 +33,14 @@ export default function IndexSidebar() {
         color="#fff"
         p={5}
       >
-        <Flex
-          flexDir="column"
-          p={5}
-          fontSize={{ base: "20px", sm: "20px", md: "40px" }}
-          fontWeight={700}
-        >
+        <Flex flexDir="column" p={5} fontWeight={700}>
           {navData.map((item) => (
             <Flex
               key={item.title}
               p={5}
               align="center"
               justify={"space-around"}
+              gap={1}
             >
               <Icon as={item.icon} boxSize={5} />
               <Text

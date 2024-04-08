@@ -46,7 +46,6 @@ export default function CModal() {
           textColor={"#ffffff"}
         >
           <ModalHeader textAlign={"center"}>Create Miner</ModalHeader>
-          <ModalCloseButton />
           <ModalBody>
             <Stack>
               <Heading size={"sm"}>Computing power</Heading>
@@ -100,7 +99,6 @@ export default function CModal() {
             <Button bg="#3b49df" textColor={"white"} mr={3} onClick={onClose}>
               Finish
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

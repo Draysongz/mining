@@ -27,7 +27,7 @@ export default function MidWidget() {
   ];
   return (
     <>
-      <SimpleGrid gap={5} columns={{ base: 1, sm: 1, md: 2, lg: 2 }}>
+      <SimpleGrid gap={5} columns={{ base: 1, sm: 1, md: 1, lg: 2 }}>
         {cardData.map((card) => (
           <Card
             rounded={"2xl"}
@@ -36,7 +36,7 @@ export default function MidWidget() {
             bg="#301287"
             px={6}
             py={4}
-            h={"400px"}
+            h={{ base: "500px", md: "400px" }}
           >
             <Flex justify="space-between">
               <Flex>
@@ -49,9 +49,14 @@ export default function MidWidget() {
               </Box>
             </Flex>
 
-            <HStack color={"white"} p={2} justify="space-between">
-              <Stack w={"30%"}>
-                <Heading>$15.6K</Heading>
+            <Stack
+              color={"white"}
+              align={{ base: "none", md: "center" }}
+              justify="space-between"
+              direction={{ base: "column", md: "row" }}
+            >
+              <Stack w={"30%"} direction={{ base: "row", md: "column" }}>
+                <Heading size={"lg"}>$15.6K</Heading>
                 <Text>Total Spent</Text>
                 <Flex align={"center"}>
                   <IoMdArrowDropup color={"#00D87D"} />
@@ -59,7 +64,7 @@ export default function MidWidget() {
                 </Flex>
               </Stack>
               <MonthChart />
-            </HStack>
+            </Stack>
           </Card>
         ))}
       </SimpleGrid>

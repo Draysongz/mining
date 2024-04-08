@@ -17,9 +17,13 @@ import {
   MenuDivider,
   useColorModeValue,
   Flex,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ReactNode } from "react";
+import { FaBriefcase } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 
 import CModal from "./Dashboard/createModal";
 
@@ -51,24 +55,28 @@ export default function Navbar() {
       <Container maxW="1280px" px={4} mx="auto">
         <HStack spacing={4}>
           <Flex w={"10%"}>
-            <Image
+            {/* <Image
               alt="dev logo"
               w={"auto"}
               h={12}
               src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png"
-            />
+            /> */}
           </Flex>
           <Flex w={"90%"} justify={"space-between"}>
             {" "}
-            <Input
-              maxW="20rem"
-              left={10}
-              placeholder="Search..."
-              borderColor={useColorModeValue("#301287", "white")}
-              borderRadius="10px"
-              d={{ base: "none", md: "block" }}
-              color="white"
-            />
+            <InputGroup>
+              <InputLeftElement>
+                <FaSearch />
+              </InputLeftElement>
+              <Input
+                maxW="20rem"
+                placeholder="Search..."
+                borderColor={useColorModeValue("#301287", "white")}
+                borderRadius="10px"
+                d={{ base: "none", md: "block" }}
+                color="white"
+              />
+            </InputGroup>
             <Spacer />
             <HStack spacing={3}>
               <>
@@ -92,6 +100,7 @@ export default function Navbar() {
                 bg="#3b49df"
                 _hover={{ bg: "#323ebe" }}
                 href="/login"
+                leftIcon={<FaBriefcase />}
               >
                 Login
               </Button>
