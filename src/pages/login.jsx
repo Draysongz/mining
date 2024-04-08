@@ -16,34 +16,39 @@ import {
   InputGroup,
   InputRightElement,
   Link,
+  IconButton,
 } from "@chakra-ui/react";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import spiralImg from "../images/Vector.png";
 import Image from "next/image";
 import axios from "axios";
-import {toast} from 'react-toastify'
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function Login() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const login = async(e)=>{
-    e.preventDefault()
+  const router = useRouter();
+
+  const login = async (e) => {
+    e.preventDefault();
     try {
-      const user = await axios.post('api/login', {
+      const user = await axios.post("api/login", {
         email,
-        password
-      })
-      console.log(user)
-      toast.success('Login successful')
+        password,
+      });
+      console.log(user);
+      toast.success("Login successful");
+      router.push("/dashboard");
     } catch (error) {
-      const errorMessage = error.response.data
-      toast.error(errorMessage)
-      console.log(error.response.data)
+      const errorMessage = error.response.data;
+      toast.error(errorMessage);
+      console.log(error.response.data);
     }
-  }
+  };
   return (
     <>
       <Box bg={"#10062D"} position="relative">
@@ -84,7 +89,7 @@ export default function Login() {
                     type="email"
                     size={"lg"}
                     value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Username or E-mail"
                     _placeholder={{ color: "#C5C0C0" }}
                     color={"white"}
@@ -102,17 +107,18 @@ export default function Login() {
                       type={show ? "text" : "password"}
                       placeholder="Password"
                       value={password}
-                      onChange={(e)=>setPassword(e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       _placeholder={{ color: "#C5C0C0" }}
                       color={"white"}
                     />
                     <InputRightElement width="4.5rem">
-                      <Button h="1.75rem" size="sm" onClick={handleClick}>
-                        {show ? "Hide" : "Show"}
-                      </Button>
-
-
-
+                      <IconButton
+                        variant={"ghost"}
+                        h="1.75rem"
+                        size="sm"
+                        onClick={handleClick}
+                        icon={show ? <ViewOffIcon /> : <ViewIcon />}
+                      />
                     </InputRightElement>
                   </InputGroup>
                 </FormControl>

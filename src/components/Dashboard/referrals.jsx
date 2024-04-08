@@ -20,7 +20,7 @@ export default function Referrals() {
             <Stack p={5}>
               <Text fontWeight={"400"}>Total Referral Bonus</Text>
               <Text fontWeight={"700"} fontSize="3xl">
-                ₦0.00
+                $0.00
               </Text>
             </Stack>
             <Stack p={5}>

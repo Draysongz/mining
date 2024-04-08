@@ -4,10 +4,17 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import Login from "@/pages/login";
 import Navbar from "@/components/navbar";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/login");
+  }, [router]);
   return (
     <>
       <Head>

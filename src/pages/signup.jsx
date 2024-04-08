@@ -15,39 +15,41 @@ import {
   Text,
   useColorModeValue,
   Link,
+  IconButton,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import spiralImg from "../images/Vector.png";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-// import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [password, setPassword] = useState('')
-  const [email, setEmail] = useState('')
-  const router = useRouter()
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const router = useRouter();
 
-  const register = async(e)=>{
-    e.preventDefault()
+  const register = async (e) => {
+    e.preventDefault();
     try {
-      const newUser = axios.post('api/register', {
+      const newUser = axios.post("api/register", {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        password:password
-      })
-      console.log(newUser)
-      toast.success('Registration successful')
-      router.push('/login')
+        password: password,
+      });
+      console.log(newUser);
+      toast.success("Registration successful");
+      router.push("/login");
     } catch (error) {
-      const errorMessage = error.response? error.response.data : ""
-      console.log(errorMessage)
+      const errorMessage = error.response ? error.response.data : "";
+      console.log(errorMessage);
     }
-  }
+  };
 
   return (
     <Box bg={"#10062D"} position="relative">
@@ -93,7 +95,7 @@ export default function SignupCard() {
                       _placeholder={{ color: "#C5C0C0" }}
                       border="2px solid #301287"
                       value={firstName}
-                      onChange={(e)=>setFirstName(e.target.value)}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </FormControl>
                 </Box>
@@ -106,7 +108,7 @@ export default function SignupCard() {
                       _placeholder={{ color: "#C5C0C0" }}
                       border="2px solid #301287"
                       value={lastName}
-                      onChange={(e)=>setLastName(e.target.value)}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                   </FormControl>
                 </Box>
@@ -119,7 +121,7 @@ export default function SignupCard() {
                   _placeholder={{ color: "#C5C0C0" }}
                   border="2px solid #301287"
                   value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </FormControl>
               <FormControl id="password" isRequired color={"white"}>
@@ -134,17 +136,24 @@ export default function SignupCard() {
                     placeholder="Password"
                     _placeholder={{ color: "#C5C0C0" }}
                     value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <InputRightElement h={"full"}>
-                    <Button
+                    <IconButton
+                      variant={"ghost"}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }
+                      icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
+                    />
+                    {/* <Button
                       variant={"ghost"}
                       onClick={() =>
                         setShowPassword((showPassword) => !showPassword)
                       }
                     >
-                      {/* {showPassword ? <ViewIcon /> : <ViewOffIcon />} */}
-                    </Button>
+                      { ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button> */}
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
