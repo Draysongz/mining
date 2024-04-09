@@ -19,6 +19,7 @@ import Rec from "../../images/Rectangle 4.png";
 import { FaChartPie } from "react-icons/fa";
 import { ComputeChart, MonthChart } from "./chart";
 import { IoMdArrowDropup } from "react-icons/io";
+import Example, { AreaExample } from "./chart2";
 
 export default function MidWidget() {
   // const cardData = [
@@ -62,7 +63,8 @@ export default function MidWidget() {
                 <Text color={"#00D87D"}>+2.45%</Text>
               </Flex>
             </Stack>
-            <MonthChart />
+            <AreaExample />
+            {/* <MonthChart /> */}
           </Stack>
         </Card>
         <Card
@@ -84,7 +86,8 @@ export default function MidWidget() {
             </Box>
           </Flex>
           <CardBody>
-            <ComputeChart />
+            <Example />
+            {/* <ComputeChart /> */}
           </CardBody>
         </Card>
       </SimpleGrid>
