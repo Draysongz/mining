@@ -29,12 +29,12 @@ export default function referrals() {
         </Flex>
         <Spacer />
         {/* Sidebar and dashscreen */}
-        <Flex flexDir={["row", "row", "row", "row"]}>
+        <Flex flexDir={["column", "column", "row", "row"]}>
           {/* Sidebar Component */}
           <IndexSidebar />
           {/* Dashscreen Components */}
           <Stack
-            w={["75%", "80%", "85%", "85%"]}
+            w={["100%", "100%", "85%", "85%"]}
             bg={"#10062D"}
             color="#fff"
             borderLeft="2px solid #301287"
