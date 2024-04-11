@@ -48,13 +48,7 @@ export default function MidWidget() {
               <Icon boxSize={8} color={"#501EE1"} as={FaChartPie} />
             </Box>
           </Flex>
-
-          <Stack
-            color={"white"}
-            align={{ base: "none", md: "center" }}
-            justify="space-between"
-            direction={{ base: "column", md: "row" }}
-          >
+          <CardBody>
             <Stack w={"30%"} direction={{ base: "row", md: "column" }}>
               <Heading size={"lg"}>$15.6K</Heading>
               <Text>Total Spent</Text>
@@ -63,9 +57,10 @@ export default function MidWidget() {
                 <Text color={"#00D87D"}>+2.45%</Text>
               </Flex>
             </Stack>
-            <AreaExample />
-            {/* <MonthChart /> */}
-          </Stack>
+
+            <MonthChart />
+          </CardBody>
+          {/* <AreaExample /> */}
         </Card>
         <Card
           rounded={"2xl"}
