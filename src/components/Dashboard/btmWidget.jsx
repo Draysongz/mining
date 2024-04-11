@@ -6,8 +6,20 @@ import {
   SimpleGrid,
   Text,
   Icon,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Image,
 } from "@chakra-ui/react";
 import { FaChartPie } from "react-icons/fa";
+import Rec9 from "../../images/Rectangle9.png";
+import NextImage from "next/image";
 
 export default function BtmWidget() {
   const cardData = [
@@ -25,7 +37,7 @@ export default function BtmWidget() {
             bg="#301287"
             px={6}
             py={4}
-            height={"300px"}
+            height={"400px"}
           >
             <Flex justify="space-between">
               <Flex>
@@ -38,11 +50,65 @@ export default function BtmWidget() {
               </Box>
             </Flex>
 
-            <Stack color={"white"} p={2}>
-              {/* <Text fontSize={"xs"}>{card.text}</Text>
-                <Text fontSize={"2xl"} whiteSpace="pre-wrap">
-                  {card.title}
-                </Text> */}
+            <Stack color={"white"} p={2} position={"absolute"}>
+              <TableContainer>
+                <Table variant="simple">
+                  <Thead>
+                    <Tr>
+                      <Th isNumeric>Date</Th>
+                      <Th isNumeric>Computing Power</Th>
+                      <Th isNumeric>Reward</Th>
+                      <Th isNumeric>Addres</Th>
+                      <Th>Status</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td isNumeric>4/8/2024</Td>
+                      <Td isNumeric>1</Td>
+                      <Td isNumeric>0.00000082</Td>
+                      <Td isNumeric>18ihh9rs...3hcFPX1EF</Td>
+                      <Td color={"#00D87D"}>Approved</Td>
+                    </Tr>
+                    <Tr>
+                      <Td isNumeric>4/8/2024</Td>
+                      <Td isNumeric>1</Td>
+                      <Td isNumeric>0.00000082</Td>
+                      <Td isNumeric>18ihh9rs...3hcFPX1EF</Td>
+                      <Td color={"#00D87D"}>Approved</Td>
+                    </Tr>
+                    <Tr>
+                      <Td isNumeric>4/8/2024</Td>
+                      <Td isNumeric>1</Td>
+                      <Td isNumeric>0.00000082</Td>
+                      <Td isNumeric>18ihh9rs...3hcFPX1EF</Td>
+                      <Td color="#FF4949">Declined</Td>
+                    </Tr>
+                    <Tr>
+                      <Td isNumeric>4/8/2024</Td>
+                      <Td isNumeric>1</Td>
+                      <Td isNumeric>0.00000082</Td>
+                      <Td isNumeric>18ihh9rs...3hcFPX1EF</Td>
+                      <Td color={"#00D87D"}>Approved</Td>
+                    </Tr>
+                    <Tr>
+                      <Td isNumeric>4/8/2024</Td>
+                      <Td isNumeric>1</Td>
+                      <Td isNumeric>0.00000082</Td>
+                      <Td isNumeric>18ihh9rs...3hcFPX1EF</Td>
+                      <Td color={"#00D87D"}>Approved</Td>
+                    </Tr>
+                    <Tr>
+                      <Td isNumeric>4/8/2024</Td>
+                      <Td isNumeric>1</Td>
+                      <Td isNumeric>0.00000082</Td>
+                      <Td isNumeric>18ihh9rs...3hcFPX1EF</Td>
+                      <Td color={"#00D87D"}>Approved</Td>
+                    </Tr>
+                  </Tbody>
+                  <Tfoot></Tfoot>
+                </Table>
+              </TableContainer>
             </Stack>
           </Card>
         ))}

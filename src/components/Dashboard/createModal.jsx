@@ -24,10 +24,11 @@ import {
   Tr,
   Td,
   TableContainer,
+  Image,
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
-import { useEffect, useState } from "react";
-import Miner from "@/pages/api/Model/Miner";
+import Rec9 from "../../images/Rectangle9.png";
+import NextImage from "next/image";
 
 export default function CModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -77,10 +78,20 @@ useEffect(()=>{
                   <Tab bg="#3b49df">Daily</Tab>
                 </TabList>
                 <TabPanels>
-                  <TabPanel bg="#3b49df">
+                  <TabPanel bg="#3b49df" pos={"relative"}>
+                    <Image
+                      as={NextImage}
+                      src={Rec9}
+                      placeholder="blur"
+                      quality={100}
+                      fill
+                      sizes="100vw"
+                      style={{ objectFit: "cover" }}
+                      pos={"absolute"}
+                    />
                     <TableContainer>
                       <Table variant="simple">
-                        <Tbody>
+                        <Tbody pos={"relative"}>
                           <Tr>
                             <Td>POOL PAYOUT</Td>
                             <Td isNumeric>$3.300.00005195</Td>
