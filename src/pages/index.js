@@ -10,7 +10,7 @@ import connectDB from "./api/db/connection";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default async function Home() {
+export default function Home() {
   const router = useRouter();
   
   useEffect(() => {

@@ -29,13 +29,32 @@ import {
 import { IoMdAdd } from "react-icons/io";
 import Rec9 from "../../images/Rectangle9.png";
 import NextImage from "next/image";
+import { useState, useEffect } from "react";
+import Miner from "@/pages/api/Controllers/miner";
 
-export default function CModal() {
+export default function CModal({user, startMining}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const[power, setpower] = useState('')
-useEffect(()=>{
-  console.log(power)
-}, [])
+
+  useEffect(()=>{
+    console.log(power)
+  }, [power])
+
+  console.log(user)
+  const [miner, setMiner] = useState(null);
+  const [balance, setBalance] = useState(0);
+
+ const handleStartMining = async (e)=>{
+  e.preventDefault()
+  const cost = power * 24
+  startMining(user._id, power, cost)
+ }
+
+ 
+
+ 
+
+ 
   return (
     <>
       <IconButton
@@ -113,7 +132,7 @@ useEffect(()=>{
           </ModalBody>
 
           <ModalFooter>
-            <Button bg="#3b49df" textColor={"white"} mr={3} onClick={onClose}>
+            <Button bg="#3b49df" textColor={"white"} mr={3} onClick={handleStartMining}>
               Finish
             </Button>
           </ModalFooter>

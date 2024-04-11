@@ -14,15 +14,72 @@ import NextLink from "next/link";
 import TopWidget from "@/components/Dashboard/topWidget";
 import MidWidget from "@/components/Dashboard/midWidget";
 import BtmWidget from "@/components/Dashboard/btmWidget";
+import { useState, useEffect } from "react";
+import Cookies from 'js-cookie';
+import axios from "axios";
+import Miner from "./api/Controllers/miner";
+
+export default function dashboard() {
+  // Define state to store user data
+  const [user, setUser] = useState(null);
+
+  async function fetchUser(userId) {
+    try {
+      // Make a GET request to the user API route with the user ID as a query parameter
+      const response = await axios.get(`/api/user?userId=${userId}`);
+  
+      // Return the user data from the response
+      return response.data;
+    } catch (error) {
+      // Handle any errors
+      console.error('Error fetching user:', error.message);
+      return null; // Return null if an error occurs
+    }
+  }
+  
+  useEffect(() => {
+    const userId = Cookies.get('userId');
+
+    if(userId){
+      fetchUser(userId)
+  .then(user => {
+    if (user) {
+      // User data is available
+      console.log('User details:', user);
+      setUser(user)
+    } else {
+      // User not found or error occurred
+      console.log('User not found or error occurred.');
+    }
+  });
+    }
+  }, []);
+
+  const [miner, setMiner] = useState(null);
+  const [balance, setBalance] = useState(0);
+
+  const startMining = (userId, hashRate, cost) => {
+    const newMiner = new Miner(userId, hashRate, cost);
+    newMiner.startMining();
+    setMiner(newMiner);
+  };
+
+  const stopMining = () => {
+    if (miner) {
+      miner.stopMining();
+      setMiner(null);
+    }
+  };
 
 
-export default async function dashboard() {
+
+
   return (
     <>
       <Box>
         {/* Navbar */}
         <Flex>
-          <Navbar />
+          <Navbar startMining={startMining} />
         </Flex>
         <Spacer />
         {/* Sidebar and dashscreen */}
@@ -39,7 +96,7 @@ export default async function dashboard() {
             p={5}
           >
             {/* Top Section */}
-            <TopWidget />
+            <TopWidget miner={miner} />
             {/* Mid Section */}
             <MidWidget />
             {/* Bottom Section */}

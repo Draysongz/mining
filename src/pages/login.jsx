@@ -24,6 +24,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 
 export default function Login() {
@@ -31,26 +32,26 @@ export default function Login() {
   const handleClick = () => setShow(!show);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  
 
   const router = useRouter();
 
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("api/login", {
-        email,
-        password,
-      });
-      const user = response.data
+      const response = await axios.post('api/login', { email, password });
+      const user = response.data;
+      Cookies.set('userId', user._id); // Assuming user.id is a unique identifier
       console.log(user);
-      toast.success("Login successful");
-      router.push('/dashboard', { user });
+      toast.success('Login successful');
+      router.push('/dashboard');
     } catch (error) {
       const errorMessage = error.response.data;
       toast.error(errorMessage);
       console.log(error.response.data);
     }
   };
+
   return (
     <>
       <Box bg={"#10062D"} position="relative">

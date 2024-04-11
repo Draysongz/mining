@@ -8,15 +8,33 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { FaChartPie } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
-export default function TopWidget() {
+export default function TopWidget({miner}) {
+
+
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (miner) {
+        const newBalance = miner.getCurrentBalance();
+        setBalance(newBalance);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [miner]);
+
   const cardData = [
-    { title: "Total Rewards", text: "$0.0561" },
+    { title: "Total Rewards", text: balance ? parseFloat(balance).toFixed(8): 0 },
     { title: "Miners", text: "1 Miner" },
-    { title: "Power", text: "1 TH/s" },
+    { title: "Power", text: miner?.hashRate ? miner.hashRate : 1 },
     { title: "Mean Efficiency", text: "35 W/TH" },
     // Add more card data objects as needed
   ];
+
+  console.log('miner from top widget', miner)
   return (
     <>
       <SimpleGrid gap={10} columns={{ base: 1, sm: 2, md: 2, lg: 4 }}>

@@ -24,7 +24,9 @@ import NextLink from "next/link";
 import { ReactNode } from "react";
 import { FaBriefcase } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
-
+import { useState, useEffect } from "react";
+import Cookies from 'js-cookie';
+import axios from "axios";
 import CModal from "./Dashboard/createModal";
 
 // const IconButton = ({ children }) => {
@@ -42,7 +44,43 @@ import CModal from "./Dashboard/createModal";
 //   );
 // };
 
-export default function Navbar() {
+export default function Navbar({startMining}) {
+   // Define state to store user data
+   const [user, setUser] = useState(null);
+   async function fetchUser(userId) {
+    try {
+      // Make a GET request to the user API route with the user ID as a query parameter
+      const response = await axios.get(`/api/user?userId=${userId}`);
+  
+      // Return the user data from the response
+      return response.data;
+    } catch (error) {
+      // Handle any errors
+      console.error('Error fetching user:', error.message);
+      return null; // Return null if an error occurs
+    }
+  }
+
+
+  
+  useEffect(() => {
+    const userId = Cookies.get('userId');
+
+    if(userId){
+      fetchUser(userId)
+  .then(user => {
+    if (user) {
+      // User data is available
+      console.log('User details:', user);
+      setUser(user)
+    } else {
+      // User not found or error occurred
+      console.log('User not found or error occurred.');
+    }
+  });
+    }
+  }, []);
+
   return (
     <Box
       py="2"
@@ -80,7 +118,7 @@ export default function Navbar() {
             <Spacer />
             <HStack spacing={3}>
               <>
-                <CModal />
+                <CModal user={user} startMining={startMining} />
               </>
 
               <Button
