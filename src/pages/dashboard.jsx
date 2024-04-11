@@ -74,9 +74,6 @@ export default function dashboard() {
     }
   };
 
-
-
-
   return (
     <>
       <Box>
@@ -90,22 +87,8 @@ export default function dashboard() {
           {/* Sidebar Component */}
           <IndexSidebar />
           {/* Dashscreen Components */}
-          <Stack
-            w={["75%", "80%", "85%", "85%"]}
-            bg={"#10062D"}
-            color="#fff"
-            borderLeft="2px solid #301287"
-            spacing={10}
-            p={5}
-          >
-            {/* Top Section */}
-            <TopWidget miner={miner} />
-            {/* Mid Section */}
-            <MidWidget />
-            {/* Bottom Section */}
-            <BtmWidget />
-          </Stack>
-          <DashScreen />
+      
+          <DashScreen miner={miner} />
         </Flex>
       </Box>
     </>

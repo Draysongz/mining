@@ -3,7 +3,7 @@ import TopWidget from "@/components/Dashboard/topWidget";
 import MidWidget from "@/components/Dashboard/midWidget";
 import BtmWidget from "@/components/Dashboard/btmWidget";
 
-export default function DashScreen() {
+export default function DashScreen({miner}) {
   return (
     <>
       <Stack
@@ -15,7 +15,7 @@ export default function DashScreen() {
         p={5}
       >
         {/* Top Section */}
-        <TopWidget />
+        <TopWidget miner={miner} />
         {/* Mid Section */}
         <MidWidget />
         {/* Bottom Section */}
