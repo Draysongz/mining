@@ -15,7 +15,8 @@ import TopWidget from "@/components/Dashboard/topWidget";
 import MidWidget from "@/components/Dashboard/midWidget";
 import BtmWidget from "@/components/Dashboard/btmWidget";
 
-export default function dashboard() {
+
+export default async function dashboard() {
   return (
     <>
       <Box>

@@ -22,7 +22,7 @@ import spiralImg from "../images/Vector.png";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import {toast} from 'react-toastify'
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 export default function SignupCard() {
@@ -36,7 +36,7 @@ export default function SignupCard() {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const newUser = axios.post("api/register", {
+      const newUser = await axios.post("api/register", {
         firstName: firstName,
         lastName: lastName,
         email: email,

@@ -25,6 +25,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
+
 export default function Login() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -36,13 +37,14 @@ export default function Login() {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const user = await axios.post("api/login", {
+      const response = await axios.post("api/login", {
         email,
         password,
       });
+      const user = response.data
       console.log(user);
       toast.success("Login successful");
-      router.push("/dashboard");
+      router.push('/dashboard', { user });
     } catch (error) {
       const errorMessage = error.response.data;
       toast.error(errorMessage);

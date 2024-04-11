@@ -26,9 +26,15 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
+import { useEffect, useState } from "react";
+import Miner from "@/pages/api/Model/Miner";
 
 export default function CModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const[power, setpower] = useState('')
+useEffect(()=>{
+  console.log(power)
+}, [])
   return (
     <>
       <IconButton
@@ -50,13 +56,13 @@ export default function CModal() {
             <Stack>
               <Heading size={"sm"}>Computing power</Heading>
               <ButtonGroup gap="4" variant={"outline"}>
-                <Button color={"#00D87D"} border="1px solid #301287">
+                <Button value={1} onClick={(e)=>setpower(e.target.value)} color={"#00D87D"} border="1px solid #301287">
                   1 TH
                 </Button>
-                <Button color={"#00D87D"} border="1px solid #301287">
+                <Button value={10} onClick={(e)=>setpower(e.target.value)}  color={"#00D87D"} border="1px solid #301287">
                   10 TH
                 </Button>
-                <Button color={"#00D87D"} border="1px solid #301287">
+                <Button value={100} onClick={(e)=>setpower(e.target.value)}  color={"#00D87D"} border="1px solid #301287">
                   100 TH
                 </Button>
                 <Button color={"#ffffff"} border="1px solid #301287">

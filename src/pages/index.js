@@ -6,12 +6,13 @@ import Login from "@/pages/login";
 import Navbar from "@/components/navbar";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import connectDB from "./api/db/connection";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default async function Home() {
   const router = useRouter();
-
+  
   useEffect(() => {
     router.push("/login");
   }, [router]);

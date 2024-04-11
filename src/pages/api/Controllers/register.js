@@ -2,12 +2,12 @@
 import User from "../Model/User";
 import bcrypt from 'bcrypt'
 import connectDB from "../db/connection";
+import mongoose from "mongoose";
 
 
 
 export default async function (req, res){
     await connectDB()
-
     try {
       const salt = bcrypt.genSaltSync(10);
       const hash = bcrypt.hashSync(req.body.password, salt)
@@ -20,6 +20,7 @@ export default async function (req, res){
       } 
   
         const newUser = new User({
+          userId: new mongoose.Types.ObjectId(),
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           password: hash,
