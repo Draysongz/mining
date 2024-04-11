@@ -31,6 +31,7 @@ import Rec9 from "../../images/Rectangle9.png";
 import NextImage from "next/image";
 import { useState, useEffect } from "react";
 import Miner from "@/pages/api/Controllers/miner";
+import {toast} from 'react-toastify'
 
 export default function CModal({user, startMining}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,6 +49,8 @@ export default function CModal({user, startMining}) {
   e.preventDefault()
   const cost = power * 24
   startMining(user._id, power, cost)
+  toast.success('Miner created')
+  onClose()
  }
 
  
