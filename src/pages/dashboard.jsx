@@ -18,6 +18,9 @@ import { useState, useEffect } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
 import Miner from "./api/Controllers/miner";
+import DashScreen from "@/components/Dashboard/dashScreen";
+
+
 
 export default function dashboard() {
   // Define state to store user data
@@ -83,7 +86,7 @@ export default function dashboard() {
         </Flex>
         <Spacer />
         {/* Sidebar and dashscreen */}
-        <Flex flexDir={["row", "row", "row", "row"]}>
+        <Flex flexDir={["column", "column", "row", "row"]}>
           {/* Sidebar Component */}
           <IndexSidebar />
           {/* Dashscreen Components */}
@@ -102,6 +105,7 @@ export default function dashboard() {
             {/* Bottom Section */}
             <BtmWidget />
           </Stack>
+          <DashScreen />
         </Flex>
       </Box>
     </>

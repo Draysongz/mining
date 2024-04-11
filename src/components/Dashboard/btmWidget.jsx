@@ -37,7 +37,7 @@ export default function BtmWidget() {
             bg="#301287"
             px={6}
             py={4}
-            height={"400px"}
+            height={"500px"}
           >
             <Flex justify="space-between">
               <Flex>
@@ -50,7 +50,7 @@ export default function BtmWidget() {
               </Box>
             </Flex>
 
-            <Stack color={"white"} p={2} position={"absolute"}>
+            <Stack color={"white"}>
               <TableContainer>
                 <Table variant="simple">
                   <Thead>
