@@ -32,6 +32,8 @@ import NextImage from "next/image";
 import { useState, useEffect } from "react";
 import Miner from "@/pages/api/Controllers/miner";
 import { toast } from "react-toastify";
+import PaymentModal from "./payModal";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 export default function CModal({ user, startMining }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -130,6 +132,32 @@ export default function CModal({ user, startMining }) {
                         </Tbody>
                       </Table>
                     </TableContainer>
+                    <Stack p={4} fontSize="xs">
+                      <Text>Reward history</Text>
+                      <Text>
+                        Bitcoin halving is expected around 21 April. Make sure
+                        you adjust your investment strategy
+                      </Text>
+                    </Stack>
+
+                    <Flex p={2} align={"center"} justify="space-between">
+                      <Text>Miner traits</Text>
+                      <ArrowForwardIcon />
+                    </Flex>
+                    <Stack>
+                      <Flex align={"center"} justify={"space-between"}>
+                        <Text>Price per TH</Text>
+                        <Text>$27.99</Text>
+                      </Flex>
+                      <Flex align={"center"} justify={"space-between"}>
+                        <Text>Historical ROI</Text>
+                        <Text>58.72</Text>
+                      </Flex>
+                      <Flex align={"center"} justify={"space-between"}>
+                        <Text>Total</Text>
+                        <Text>27.99</Text>
+                      </Flex>
+                    </Stack>
                   </TabPanel>
                   <TabPanel>
                     <p>two!</p>
@@ -140,14 +168,15 @@ export default function CModal({ user, startMining }) {
           </ModalBody>
 
           <ModalFooter>
-            <Button
+            <PaymentModal />
+            {/* <Button
               bg="#3b49df"
               textColor={"white"}
               mr={3}
               onClick={handleStartMining}
             >
-              Finish
-            </Button>
+              Next
+            </Button> */}
           </ModalFooter>
         </ModalContent>
       </Modal>
