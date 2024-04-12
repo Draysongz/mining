@@ -29,7 +29,7 @@ export default function IndexSidebar() {
     <>
       {isLargerThan768 ? (
         <Flex
-          w={["25%", "20%", "15%", "15%"]}
+          w={["0", "0", "15%", "15%"]}
           minH={"100vh"}
           align="start"
           justify={"center"}

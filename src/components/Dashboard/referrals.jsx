@@ -65,6 +65,7 @@ export default function Referrals() {
               Copy
             </Button>
           </Flex>
+          <Flex w={"20%"} p={5}></Flex>
         </Stack>
       </Flex>
     </>

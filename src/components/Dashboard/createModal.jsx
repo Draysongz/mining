@@ -31,33 +31,28 @@ import Rec9 from "../../images/Rectangle9.png";
 import NextImage from "next/image";
 import { useState, useEffect } from "react";
 import Miner from "@/pages/api/Controllers/miner";
-import {toast} from 'react-toastify'
+import { toast } from "react-toastify";
 
-export default function CModal({user, startMining}) {
+export default function CModal({ user, startMining }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const[power, setpower] = useState('')
+  const [power, setpower] = useState("");
 
-  useEffect(()=>{
-    console.log(power)
-  }, [power])
+  useEffect(() => {
+    console.log(power);
+  }, [power]);
 
-  console.log(user)
+  console.log(user);
   const [miner, setMiner] = useState(null);
   const [balance, setBalance] = useState(0);
 
- const handleStartMining = async (e)=>{
-  e.preventDefault()
-  const cost = power * 24
-  startMining(user._id, power, cost)
-  toast.success('Miner created')
-  onClose()
- }
+  const handleStartMining = async (e) => {
+    e.preventDefault();
+    const cost = power * 24;
+    startMining(user._id, power, cost);
+    toast.success("Miner created");
+    onClose();
+  };
 
- 
-
- 
-
- 
   return (
     <>
       <IconButton
@@ -79,13 +74,28 @@ export default function CModal({user, startMining}) {
             <Stack>
               <Heading size={"sm"}>Computing power</Heading>
               <ButtonGroup gap="4" variant={"outline"}>
-                <Button value={1} onClick={(e)=>setpower(e.target.value)} color={"#00D87D"} border="1px solid #301287">
+                <Button
+                  value={1}
+                  onClick={(e) => setpower(e.target.value)}
+                  color={"#00D87D"}
+                  border="1px solid #301287"
+                >
                   1 TH
                 </Button>
-                <Button value={10} onClick={(e)=>setpower(e.target.value)}  color={"#00D87D"} border="1px solid #301287">
+                <Button
+                  value={10}
+                  onClick={(e) => setpower(e.target.value)}
+                  color={"#00D87D"}
+                  border="1px solid #301287"
+                >
                   10 TH
                 </Button>
-                <Button value={100} onClick={(e)=>setpower(e.target.value)}  color={"#00D87D"} border="1px solid #301287">
+                <Button
+                  value={100}
+                  onClick={(e) => setpower(e.target.value)}
+                  color={"#00D87D"}
+                  border="1px solid #301287"
+                >
                   100 TH
                 </Button>
                 <Button color={"#ffffff"} border="1px solid #301287">
@@ -100,20 +110,15 @@ export default function CModal({user, startMining}) {
                   <Tab bg="#3b49df">Daily</Tab>
                 </TabList>
                 <TabPanels>
-                  <TabPanel bg="#3b49df" pos={"relative"}>
-                    <Image
-                      as={NextImage}
-                      src={Rec9}
-                      placeholder="blur"
-                      quality={100}
-                      fill
-                      sizes="100vw"
-                      style={{ objectFit: "cover" }}
-                      pos={"absolute"}
-                    />
+                  <TabPanel
+                    bg="#3b49df"
+                    backgroundImage={`url(${Rec9.src})`}
+                    backgroundSize="cover"
+                    backgroundPosition="center"
+                  >
                     <TableContainer>
                       <Table variant="simple">
-                        <Tbody pos={"relative"}>
+                        <Tbody>
                           <Tr>
                             <Td>POOL PAYOUT</Td>
                             <Td isNumeric>$3.300.00005195</Td>
@@ -135,7 +140,12 @@ export default function CModal({user, startMining}) {
           </ModalBody>
 
           <ModalFooter>
-            <Button bg="#3b49df" textColor={"white"} mr={3} onClick={handleStartMining}>
+            <Button
+              bg="#3b49df"
+              textColor={"white"}
+              mr={3}
+              onClick={handleStartMining}
+            >
               Finish
             </Button>
           </ModalFooter>

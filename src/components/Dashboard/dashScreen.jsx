@@ -1,9 +1,9 @@
-import { Stack } from "@chakra-ui/react";
+import { Stack, Flex } from "@chakra-ui/react";
 import TopWidget from "@/components/Dashboard/topWidget";
 import MidWidget from "@/components/Dashboard/midWidget";
 import BtmWidget from "@/components/Dashboard/btmWidget";
 
-export default function DashScreen({miner}) {
+export default function DashScreen({ miner }) {
   return (
     <>
       <Stack
@@ -20,6 +20,7 @@ export default function DashScreen({miner}) {
         <MidWidget />
         {/* Bottom Section */}
         <BtmWidget />
+        <Flex w={"20%"} p={5}></Flex>
       </Stack>
     </>
   );

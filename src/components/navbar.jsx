@@ -25,59 +25,41 @@ import { ReactNode } from "react";
 import { FaBriefcase } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import axios from "axios";
 import CModal from "./Dashboard/createModal";
 
-// const IconButton = ({ children }) => {
-//   return (
-//     <Button
-//       padding="0.4rem"
-//       width="auto"
-//       height="auto"
-//       borderRadius="100%"
-//       bg="transparent"
-//       _hover={{ bg: "#f6f6f6" }}
-//     >
-//       {children}
-//     </Button>
-//   );
-// };
-
-export default function Navbar({startMining}) {
-   // Define state to store user data
-   const [user, setUser] = useState(null);
-   async function fetchUser(userId) {
+export default function Navbar({ startMining }) {
+  // Define state to store user data
+  const [user, setUser] = useState(null);
+  async function fetchUser(userId) {
     try {
       // Make a GET request to the user API route with the user ID as a query parameter
       const response = await axios.get(`/api/user?userId=${userId}`);
-  
+
       // Return the user data from the response
       return response.data;
     } catch (error) {
       // Handle any errors
-      console.error('Error fetching user:', error.message);
+      console.error("Error fetching user:", error.message);
       return null; // Return null if an error occurs
     }
   }
 
-
-  
   useEffect(() => {
-    const userId = Cookies.get('userId');
+    const userId = Cookies.get("userId");
 
-    if(userId){
-      fetchUser(userId)
-  .then(user => {
-    if (user) {
-      // User data is available
-      console.log('User details:', user);
-      setUser(user)
-    } else {
-      // User not found or error occurred
-      console.log('User not found or error occurred.');
-    }
-  });
+    if (userId) {
+      fetchUser(userId).then((user) => {
+        if (user) {
+          // User data is available
+          console.log("User details:", user);
+          setUser(user);
+        } else {
+          // User not found or error occurred
+          console.log("User not found or error occurred.");
+        }
+      });
     }
   }, []);
 
@@ -87,10 +69,12 @@ export default function Navbar({startMining}) {
       boxShadow="sm"
       borderBottom="2px solid #301287"
       top="0"
+      left={0}
+      right={0}
       bg={useColorModeValue("#10062D", "gray.700")}
       width="100%"
     >
-      <Container maxW="1280px" px={4} mx="auto">
+      <Container px={4} mx="auto">
         <HStack spacing={4}>
           <Flex w={"10%"}>
             {/* <Image
@@ -107,7 +91,7 @@ export default function Navbar({startMining}) {
                 <FaSearch />
               </InputLeftElement>
               <Input
-                maxW="20rem"
+                maxW={{ base: "10rem", sm: "15rem", md: "20rem" }}
                 placeholder="Search..."
                 borderColor={useColorModeValue("#301287", "white")}
                 borderRadius="10px"
@@ -116,22 +100,11 @@ export default function Navbar({startMining}) {
               />
             </InputGroup>
             <Spacer />
-            <HStack spacing={3}>
+            <HStack spacing={5}>
               <>
                 <CModal user={user} startMining={startMining} />
               </>
-
-              <Button
-                as={NextLink}
-                color="#fff"
-                rounded="md"
-                bg="#3b49df"
-                _hover={{ bg: "#323ebe" }}
-                href="/dashboard"
-              >
-                Dashboard
-              </Button>
-              <Button
+              {/* <Button
                 as={NextLink}
                 color="#fff"
                 rounded="md"
@@ -141,7 +114,7 @@ export default function Navbar({startMining}) {
                 leftIcon={<FaBriefcase />}
               >
                 Login
-              </Button>
+              </Button> */}
 
               <Menu isLazy>
                 <MenuButton as={Button} size="sm" px={0} py={0} rounded="full">
@@ -174,7 +147,9 @@ export default function Navbar({startMining}) {
                   </Link>
                   <MenuDivider />
                   <MenuItem>
-                    <Text fontWeight="500">Dashboard</Text>
+                    <Text fontWeight="500" as={NextLink} href="/dashboard">
+                      Dashboard
+                    </Text>
                   </MenuItem>
                   <MenuItem>
                     <Text fontWeight="500">Create Post</Text>

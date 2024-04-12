@@ -49,7 +49,11 @@ export default function MidWidget() {
             </Box>
           </Flex>
           <CardBody>
-            <Stack w={"30%"} direction={{ base: "row", md: "column" }}>
+            <Stack
+              w={"20%"}
+              direction={{ base: "row", md: "column" }}
+              color="white"
+            >
               <Heading size={"lg"}>$15.6K</Heading>
               <Text>Total Spent</Text>
               <Flex align={"center"}>
