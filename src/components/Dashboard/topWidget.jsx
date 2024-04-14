@@ -10,9 +10,7 @@ import {
 import { FaChartPie } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
-export default function TopWidget({miner}) {
-
-
+export default function TopWidget({ miner }) {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
@@ -27,17 +25,20 @@ export default function TopWidget({miner}) {
   }, [miner]);
 
   const cardData = [
-    { title: "Total Rewards", text: balance ? parseFloat(balance).toFixed(8): 0 },
+    {
+      title: "Total Rewards",
+      text: balance ? parseFloat(balance).toFixed(8) : 0,
+    },
     { title: "Miners", text: "1 Miner" },
     { title: "Power", text: miner?.hashRate ? miner.hashRate : 1 },
     { title: "Mean Efficiency", text: "35 W/TH" },
     // Add more card data objects as needed
   ];
 
-  console.log('miner from top widget', miner)
+  console.log("miner from top widget", miner);
   return (
     <>
-      <SimpleGrid gap={10} columns={{ base: 1, sm: 2, md: 2, lg: 4 }}>
+      <SimpleGrid gap={10} columns={{ base: 2, sm: 2, md: 2, lg: 4 }}>
         {cardData.map((card) => (
           <Flex
             rounded={"2xl"}

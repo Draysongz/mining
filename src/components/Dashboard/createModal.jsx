@@ -118,7 +118,7 @@ export default function CModal({ user, startMining }) {
                     backgroundSize="cover"
                     backgroundPosition="center"
                   >
-                    <TableContainer>
+                    <TableContainer p={2}>
                       <Table variant="simple">
                         <Tbody>
                           <Tr>
@@ -132,7 +132,7 @@ export default function CModal({ user, startMining }) {
                         </Tbody>
                       </Table>
                     </TableContainer>
-                    <Stack p={4} fontSize="xs">
+                    <Stack p={2} fontSize="xs" bg={"gray.400"} rounded="2xl">
                       <Text>Reward history</Text>
                       <Text>
                         Bitcoin halving is expected around 21 April. Make sure

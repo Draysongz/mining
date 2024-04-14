@@ -31,7 +31,14 @@ import {
   RadioGroup,
   Radio,
   Divider,
+  Icon,
+  Box,
 } from "@chakra-ui/react";
+import { FaRegCreditCard } from "react-icons/fa";
+import { FaCcMastercard } from "react-icons/fa";
+import { SiTether } from "react-icons/si";
+import { SiBinance } from "react-icons/si";
+import { SiBitcoincash } from "react-icons/si";
 
 export default function PaymentModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,30 +70,52 @@ export default function PaymentModal() {
                 </TabList>
                 <TabPanels>
                   <TabPanel bg="#3b49df">
-                    <FormControl>
+                    <FormControl p={2}>
                       <FormLabel>Country/Region</FormLabel>
                       <Select placeholder="Select country" textColor={"black"}>
                         <option>United States of America</option>
                         <option>Nigeria</option>
                       </Select>
                     </FormControl>
-                    <Flex p={2}>
+                    <Flex p={2} bg={"gray"} rounded="2xl">
                       <Text fontSize="xs">
                         For more payment options select another country or
                         region
                       </Text>
                     </Flex>
-                    <RadioGroup>
-                      <Radio>By Card</Radio>
+                    <RadioGroup p={2}>
+                      <Radio>
+                        <Flex align={"center"} gap={2}>
+                          <Box bg={"orange"} rounded={"full"} p={2}>
+                            {" "}
+                            <Icon
+                              boxSize={6}
+                              as={FaRegCreditCard}
+                              color={"yellow.50"}
+                            />
+                          </Box>
+                          <Stack>
+                            <Text>By Card</Text>
+                            <Flex align={"center"} justify="space-between">
+                              <Text fontSize={"xs"}>USD</Text>
+                              <Icon
+                                as={FaCcMastercard}
+                                fontSize="sm"
+                                color={"yellow.50"}
+                              />
+                            </Flex>
+                          </Stack>
+                        </Flex>
+                      </Radio>
                     </RadioGroup>
-                    <Flex p={2}></Flex>
-                    <Text fontSize="xs">
-                      The payment will be processed by a third party. By paying,
-                      you agree to buy virtual Miners NFT and automatically add
-                      them to your collection.
-                    </Text>
-                    <Flex p={2}></Flex>
-                    <Stack>
+                    <Flex p={2}>
+                      <Text fontSize="xs">
+                        The payment will be processed by a third party. By
+                        paying, you agree to buy virtual Miners NFT and
+                        automatically add them to your collection.
+                      </Text>
+                    </Flex>
+                    <Stack p={2}>
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Price per TH</Text>
                         <Text>$27.99</Text>
@@ -114,9 +143,54 @@ export default function PaymentModal() {
                   <TabPanel>
                     <RadioGroup defaultValue="1">
                       <Stack>
-                        <Radio value="1">Miner</Radio>
-                        <Radio value="2">USDT</Radio>
-                        <Radio value="3">Binance Pay</Radio>
+                        <Radio value="1">
+                          <Flex align={"center"} gap={2}>
+                            <Box bg={"orange"} rounded={"full"} p={2}>
+                              <Icon
+                                boxSize={6}
+                                as={SiBitcoincash}
+                                color={"yellow.50"}
+                              />
+                            </Box>
+                            <Stack>
+                              <Text>Miner</Text>
+                              <Text as={"sub"}>ERC-20/BEP-20</Text>
+                            </Stack>
+                          </Flex>
+                        </Radio>
+                        <Radio value="2">
+                          <Flex align={"center"} gap={2}>
+                            <Box bg={"green"} rounded={"full"} p={2}>
+                              <Icon
+                                boxSize={6}
+                                as={SiTether}
+                                color={"green.50"}
+                              />
+                            </Box>
+                            <Stack>
+                              <Text>USDT</Text>
+                              <Text as={"sub"}>ERC-20 /BEP-20 / TRC-20</Text>
+                            </Stack>
+                          </Flex>
+                        </Radio>
+                        <Radio value="3">
+                          {" "}
+                          <Flex align={"center"} gap={2}>
+                            <Box bg={"orange"} rounded={"full"} p={2}>
+                              <Icon
+                                boxSize={6}
+                                as={SiBinance}
+                                color={"yellow.50"}
+                              />
+                            </Box>
+                            <Stack>
+                              <Text>Binance Pay</Text>
+                              <Text as={"sub"}>
+                                Pay with your Binance account
+                              </Text>
+                            </Stack>
+                          </Flex>
+                        </Radio>
                       </Stack>
                     </RadioGroup>
                     <Flex p={5}></Flex>
