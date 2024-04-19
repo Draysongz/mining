@@ -39,6 +39,7 @@ import { FaCcMastercard } from "react-icons/fa";
 import { SiTether } from "react-icons/si";
 import { SiBinance } from "react-icons/si";
 import { SiBitcoincash } from "react-icons/si";
+import Rec9 from "../../images/Rectangle9.png";
 
 export default function PaymentModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -58,18 +59,24 @@ export default function PaymentModal() {
           <ModalHeader textAlign={"center"}>Payment method</ModalHeader>
           <ModalBody>
             <Stack>
-              <Text>
+              <Text fontSize={"xs"}>
                 The miner will belong to you permanently. You'll be able to mint
                 it to your wallet, upgrade it, and resell it anytime.
               </Text>
-              <Flex p={5}></Flex>
+              <Flex p={1}></Flex>
               <Tabs isFitted variant="enclosed">
                 <TabList>
                   <Tab>By Card</Tab>
                   <Tab>By Crypto</Tab>
                 </TabList>
-                <TabPanels>
-                  <TabPanel bg="#3b49df">
+                <TabPanels
+                  bg="#3b49df"
+                  backgroundImage={`url(${Rec9.src})`}
+                  backgroundSize="cover"
+                  backgroundPosition="center"
+                  rounded={"lg"}
+                >
+                  <TabPanel>
                     <FormControl p={2}>
                       <FormLabel>Country/Region</FormLabel>
                       <Select placeholder="Select country" textColor={"black"}>
@@ -77,7 +84,7 @@ export default function PaymentModal() {
                         <option>Nigeria</option>
                       </Select>
                     </FormControl>
-                    <Flex p={2} bg={"gray"} rounded="2xl">
+                    <Flex p={1} bg={"gray.400"} rounded="lg" align={"center"}>
                       <Text fontSize="xs">
                         For more payment options select another country or
                         region
@@ -89,18 +96,20 @@ export default function PaymentModal() {
                           <Box bg={"orange"} rounded={"full"} p={2}>
                             {" "}
                             <Icon
-                              boxSize={6}
+                              boxSize={4}
                               as={FaRegCreditCard}
                               color={"yellow.50"}
                             />
                           </Box>
                           <Stack>
                             <Text>By Card</Text>
-                            <Flex align={"center"} justify="space-between">
-                              <Text fontSize={"xs"}>USD</Text>
+                            <Flex align={"center"} justify="space-around">
+                              <Text fontSize={"9px"} as={"sub"}>
+                                USD
+                              </Text>
                               <Icon
                                 as={FaCcMastercard}
-                                fontSize="sm"
+                                fontSize="md"
                                 color={"yellow.50"}
                               />
                             </Flex>
@@ -108,8 +117,14 @@ export default function PaymentModal() {
                         </Flex>
                       </Radio>
                     </RadioGroup>
-                    <Flex p={2}>
-                      <Text fontSize="xs">
+                    <Flex
+                      p={2}
+                      bg={"gray.400"}
+                      rounded="lg"
+                      align={"center"}
+                      justify={"center"}
+                    >
+                      <Text fontSize="10px">
                         The payment will be processed by a third party. By
                         paying, you agree to buy virtual Miners NFT and
                         automatically add them to your collection.
@@ -144,7 +159,14 @@ export default function PaymentModal() {
                     <RadioGroup defaultValue="1">
                       <Stack>
                         <Radio value="1">
-                          <Flex align={"center"} gap={2}>
+                          <Flex
+                            p={2}
+                            align={"center"}
+                            gap={2}
+                            bg={"gray.400"}
+                            w={"320px"}
+                            rounded={"lg"}
+                          >
                             <Box bg={"orange"} rounded={"full"} p={2}>
                               <Icon
                                 boxSize={6}
@@ -159,7 +181,14 @@ export default function PaymentModal() {
                           </Flex>
                         </Radio>
                         <Radio value="2">
-                          <Flex align={"center"} gap={2}>
+                          <Flex
+                            p={2}
+                            align={"center"}
+                            gap={2}
+                            bg={"gray.400"}
+                            w={"320px"}
+                            rounded={"lg"}
+                          >
                             <Box bg={"green"} rounded={"full"} p={2}>
                               <Icon
                                 boxSize={6}
@@ -175,7 +204,14 @@ export default function PaymentModal() {
                         </Radio>
                         <Radio value="3">
                           {" "}
-                          <Flex align={"center"} gap={2}>
+                          <Flex
+                            p={2}
+                            align={"center"}
+                            gap={2}
+                            bg={"gray.400"}
+                            w={"320px"}
+                            rounded={"lg"}
+                          >
                             <Box bg={"orange"} rounded={"full"} p={2}>
                               <Icon
                                 boxSize={6}
@@ -224,7 +260,7 @@ export default function PaymentModal() {
             </Stack>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter alignContent={"center"} justifyContent={"space-around"}>
             <Button onClick={onClose}>Back</Button>
             <Button bg="#3b49df" textColor={"white"} mr={3}>
               Pay

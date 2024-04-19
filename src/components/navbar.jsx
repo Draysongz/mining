@@ -75,7 +75,7 @@ export default function Navbar({ startMining }) {
       width="100%"
     >
       <Container px={4} mx="auto">
-        <HStack spacing={4}>
+        <HStack spacing={4} width="auto">
           <Flex w={"10%"}>
             {/* <Image
               alt="dev logo"
@@ -84,7 +84,7 @@ export default function Navbar({ startMining }) {
               src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png"
             /> */}
           </Flex>
-          <Flex w={"90%"} justify={"space-between"}>
+          <Flex w={"90%"} justify={"space-around"} spacing={10}>
             {" "}
             <InputGroup>
               <InputLeftElement>
@@ -99,10 +99,9 @@ export default function Navbar({ startMining }) {
                 color="white"
               />
             </InputGroup>
-            <Spacer />
-            <HStack spacing={5}>
+            <HStack>
               <>
-                <CModal user={user} startMining={startMining} />
+                <CModal user={user} spacing={10} startMining={startMining} />
               </>
               {/* <Button
                 as={NextLink}
@@ -117,7 +116,15 @@ export default function Navbar({ startMining }) {
               </Button> */}
 
               <Menu isLazy>
-                <MenuButton as={Button} size="sm" px={0} py={0} rounded="full">
+                <MenuButton
+                  as={Button}
+                  size="sm"
+                  px={2}
+                  py={5}
+                  rounded="lg"
+                  bg="#3b49df"
+                  _hover="inherit"
+                >
                   <Avatar
                     size="sm"
                     src={

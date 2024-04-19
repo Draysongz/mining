@@ -33,7 +33,7 @@ import { useState, useEffect } from "react";
 import Miner from "@/pages/api/Controllers/miner";
 import { toast } from "react-toastify";
 import PaymentModal from "./payModal";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 
 export default function CModal({ user, startMining }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -117,27 +117,43 @@ export default function CModal({ user, startMining }) {
                     backgroundImage={`url(${Rec9.src})`}
                     backgroundSize="cover"
                     backgroundPosition="center"
+                    rounded={"lg"}
                   >
-                    <TableContainer p={2}>
+                    <TableContainer p={2} borderRadius={"lg"}>
                       <Table variant="simple">
                         <Tbody>
                           <Tr>
-                            <Td>POOL PAYOUT</Td>
+                            <Td fontSize="xs">POOL PAYOUT</Td>
                             <Td isNumeric>$3.300.00005195</Td>
                           </Tr>
                           <Tr>
-                            <Td>NET REWARD</Td>
+                            <Td fontSize="xs">
+                              <Flex align={"center"} justify={"space-between"}>
+                                <Text>NET REWARD</Text> <InfoOutlineIcon />
+                              </Flex>
+                            </Td>
                             <Td isNumeric>2</Td>
                           </Tr>
                         </Tbody>
                       </Table>
                     </TableContainer>
-                    <Stack p={2} fontSize="xs" bg={"gray.400"} rounded="2xl">
+
+                    <Stack p={2} fontSize="xs">
                       <Text>Reward history</Text>
-                      <Text>
-                        Bitcoin halving is expected around 21 April. Make sure
-                        you adjust your investment strategy
-                      </Text>
+                      <Flex
+                        p={3}
+                        bg={"gray.400"}
+                        rounded="2xl"
+                        align={"center"}
+                        justify={"space-between"}
+                        gap={3}
+                      >
+                        <InfoOutlineIcon boxSize={4} />
+                        <Text fontSize={"9px"}>
+                          Bitcoin halving is expected around 21 April. Make sure
+                          you adjust your investment strategy.
+                        </Text>
+                      </Flex>
                     </Stack>
 
                     <Flex p={2} align={"center"} justify="space-between">
