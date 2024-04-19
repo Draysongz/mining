@@ -12,44 +12,49 @@ import {
 import Navbar from "@/components/navbar";
 import NextLink from "next/link";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import axios from "axios";
 import Miner from "./api/Controllers/miner";
 import DashScreen from "@/components/Dashboard/dashScreen";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, getDoc, doc } from "firebase/firestore";
+import { app } from "../../Firebase/firebase";
+
 
 export default function dashboard() {
   // Define state to store user data
   const [user, setUser] = useState(null);
 
-  async function fetchUser(userId) {
-    try {
-      // Make a GET request to the user API route with the user ID as a query parameter
-      const response = await axios.get(`/api/user?userId=${userId}`);
 
-      // Return the user data from the response
-      return response.data;
-    } catch (error) {
-      // Handle any errors
-      console.error("Error fetching user:", error.message);
-      return null; // Return null if an error occurs
-    }
-  }
-
+  
   useEffect(() => {
-    const userId = Cookies.get("userId");
+    const auth = getAuth();
 
-    if (userId) {
-      fetchUser(userId).then((user) => {
-        if (user) {
-          // User data is available
-          console.log("User details:", user);
-          setUser(user);
-        } else {
-          // User not found or error occurred
-          console.log("User not found or error occurred.");
-        }
-      });
-    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user.uid);
+        const db = getFirestore(app);
+        const docRef = doc(db, 'users', user.uid);
+        getDoc(docRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              console.log('User data:', userData);
+              setUser(userData);
+            } else {
+              console.log('User document not found.');
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching user data:', error.message);
+          });
+      } else {
+        setUser(null); // Set userdata to null when the user is not logged in
+        toast.error('please login');
+        Router.push('/login');
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const [miner, setMiner] = useState(null);
@@ -73,7 +78,7 @@ export default function dashboard() {
       <Box>
         {/* Navbar */}
         <Flex>
-          <Navbar startMining={startMining} />
+          <Navbar startMining={startMining}  />
         </Flex>
         {/* Sidebar and dashscreen */}
         <Flex flexDir={["column", "row", "row", "row"]}>

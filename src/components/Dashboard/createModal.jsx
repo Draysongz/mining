@@ -41,6 +41,8 @@ export default function CModal({ user, startMining }) {
     console.log(power);
   }, [power]);
 
+  console.log(user)
+
   console.log(user);
   const [miner, setMiner] = useState(null);
   const [balance, setBalance] = useState(0);
@@ -48,7 +50,7 @@ export default function CModal({ user, startMining }) {
   const handleStartMining = async (e) => {
     e.preventDefault();
     const cost = power * 24;
-    startMining(user._id, power, cost);
+    startMining(user.userId, power, cost);
     toast.success("Miner created");
     onClose();
   };

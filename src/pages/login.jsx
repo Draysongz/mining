@@ -24,7 +24,10 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import Cookies from "js-cookie";
+import { signInWithEmailAndPassword, getAuth,  } from "@firebase/auth";
+import { increment} from "firebase/firestore";
+import { getDoc, getFirestore, doc, updateDoc,  } from "firebase/firestore";
+import { app } from "../../Firebase/firebase";
 
 
 export default function Login() {
@@ -32,23 +35,54 @@ export default function Login() {
   const handleClick = () => setShow(!show);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading]= useState(false)
   
 
   const router = useRouter();
 
   const login = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    const auth = getAuth(app);
     try {
-      const response = await axios.post('api/login', { email, password });
-      const user = response.data;
-      Cookies.set('userId', user._id); // Assuming user.id is a unique identifier
-      console.log(user);
-      toast.success('Login successful');
-      router.push('/dashboard');
+      // Simulate a 5-second delay before setting isLoading to false
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+  
+      const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredentials.user;
+  
+      // Fetch the user's role from Firestore based on their UID
+      const db = getFirestore(app);
+      const userRef = doc(db, "users", user.uid);
+  
+      const userDoc = await getDoc(userRef);
+  
+        // Get the current notifications array
+        const userData = userDoc.data();
+        const notifications = userData.notifications || [];
+  
+        // Add a new notification to the array
+        notifications.push({
+          message: "You've successfully logged in",
+          timestamp: new Date(), // Set the timestamp in your code
+        });
+  
+        // Update the notifications and increment unreadNotifications
+        await updateDoc(userRef, {
+          notifications,
+          unreadNotifications: increment(1),
+        });
+        router.push('/dashboard')
+      toast.success("Login successful");
     } catch (error) {
-      const errorMessage = error.response.data;
-      toast.error(errorMessage);
-      console.log(error.response.data);
+      console.log(error);
+  
+      // Simulate a 4-second delay before setting isLoading to false
+      await new Promise((resolve) => setTimeout(resolve, 4000));
+  
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -127,14 +161,14 @@ export default function Login() {
                 </FormControl>
                 <Stack spacing={10} align="center">
                   <Button
-                    bg={"#301287"}
-                    color={"white"}
-                    _hover={{
-                      bg: "blue.500",
-                    }}
-                    size={"lg"}
-                    width={"200px"}
-                    onClick={login}
+                 isLoading={isLoading}
+                 loadingText="Submitting"
+                 size="lg"
+                 bg="#301287"
+                 color="white"
+                 _hover={{ bg: "blue.500" }}
+                 onClick={login}
+                 disabled={isLoading} 
                   >
                     Login
                   </Button>{" "}

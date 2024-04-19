@@ -24,6 +24,10 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import {toast} from 'react-toastify'
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { getFirestore } from "firebase/firestore";
+import {  doc, setDoc } from "firebase/firestore"; 
+import { app } from "../../Firebase/firebase";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,25 +35,40 @@ export default function SignupCard() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
 
   const register = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+  
+    const auth = getAuth(app);
     try {
-      const newUser = await axios.post("api/register", {
+      // Create user with email and password
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredentials.user;
+  
+      // Save additional user details to Firestore using the userId as the document ID
+      const db = getFirestore(app);
+      await setDoc(doc(db, 'users', user.uid), {
         firstName: firstName,
         lastName: lastName,
-        email: email,
-        password: password,
+        Email: email,
+        role: 'User',
+        status: 'active',
       });
-      console.log(newUser);
-      toast.success("Registration successful");
-      router.push("/login");
+  
+      toast.success('Registration successful');
+      router.push('/login');
     } catch (error) {
-      const errorMessage = error.response ? error.response.data : "";
-      console.log(errorMessage);
+      const errorMessage = error.message;
+      toast.error(`Error: ${errorMessage}`);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+  
 
   return (
     <Box bg={"#10062D"} position="relative">
@@ -158,18 +177,19 @@ export default function SignupCard() {
                 </InputGroup>
               </FormControl>
               <Stack spacing={10} pt={2}>
-                <Button
-                  loadingText="Submitting"
-                  size="lg"
-                  bg={"#301287"}
-                  color={"white"}
-                  _hover={{
-                    bg: "blue.500",
-                  }}
-                  onClick={register}
-                >
-                  Sign up
-                </Button>
+              <Button
+  isLoading={isLoading}
+  loadingText="Submitting"
+  size="lg"
+  bg="#301287"
+  color="white"
+  _hover={{ bg: "blue.500" }}
+  onClick={register}
+  disabled={isLoading} // Disable the button while loading
+>
+  Sign up
+</Button>
+
               </Stack>
               <Stack pt={6}>
                 <Text align={"center"} color="white">

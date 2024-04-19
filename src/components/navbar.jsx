@@ -28,40 +28,48 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import CModal from "./Dashboard/createModal";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, getDoc, doc } from "firebase/firestore";
+import { app } from "../../Firebase/firebase";
 
 export default function Navbar({ startMining }) {
   // Define state to store user data
   const [user, setUser] = useState(null);
-  async function fetchUser(userId) {
-    try {
-      // Make a GET request to the user API route with the user ID as a query parameter
-      const response = await axios.get(`/api/user?userId=${userId}`);
-
-      // Return the user data from the response
-      return response.data;
-    } catch (error) {
-      // Handle any errors
-      console.error("Error fetching user:", error.message);
-      return null; // Return null if an error occurs
-    }
-  }
 
   useEffect(() => {
-    const userId = Cookies.get("userId");
-
-    if (userId) {
-      fetchUser(userId).then((user) => {
-        if (user) {
-          // User data is available
-          console.log("User details:", user);
-          setUser(user);
-        } else {
-          // User not found or error occurred
-          console.log("User not found or error occurred.");
+    const auth = getAuth();
+  
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const userId = user.uid; // Get userId from user object
+        console.log('User ID:', userId);
+        const db = getFirestore(app);
+        const docRef = doc(db, 'users', userId);
+        getDoc(docRef)
+          .then((docSnap) => {
+            if (docSnap.exists()) {
+              const userData = docSnap.data();
+              console.log('User data:', userData);
+              setUser({ userId, ...userData }); // Include userId in the user data object
+            } else {
+              console.log('User document not found.');
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching user data:', error.message);
+          });
+      } else {
+        // Redirect to login page if not already there
+        if (!Router.pathname.includes('/login')) {
+          toast.error('Please login');
+          Router.push('/login');
         }
-      });
-    }
+      }
+    });
+  
+    return () => unsubscribe();
   }, []);
+  
 
   return (
     <Box

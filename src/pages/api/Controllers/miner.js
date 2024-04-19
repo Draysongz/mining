@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export default class Miner {
   constructor(userId, hashRate, cost) {
     this.userId = userId;
@@ -49,3 +50,5 @@ export default class Miner {
     return this.totalMinedToday;
   }
 }
+
+
