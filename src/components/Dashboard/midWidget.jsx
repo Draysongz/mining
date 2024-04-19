@@ -6,16 +6,15 @@ import {
   SimpleGrid,
   Heading,
   Text,
-  Button,
-  HStack,
-  Image,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup,
   Icon,
   CardBody,
 } from "@chakra-ui/react";
-import NextImage from "next/image";
-import Rec1 from "../../images/Rectangle 4 (1).png";
-import Rec2 from "../../images/Rectangle 4 (2).png";
-import Rec from "../../images/Rectangle 4.png";
 import { FaChartPie } from "react-icons/fa";
 import { ComputeChart, MonthChart } from "./chart";
 import { IoMdArrowDropup } from "react-icons/io";
@@ -48,23 +47,30 @@ export default function MidWidget() {
               <Icon boxSize={8} color={"#501EE1"} as={FaChartPie} />
             </Box>
           </Flex>
-          <CardBody>
-            <Stack
+          <Flex direction={{ base: "column", md: "row" }}>
+            <Stat color="white">
+              <StatNumber>$15.6K</StatNumber>
+              <StatLabel>Total Spent</StatLabel>
+              <StatHelpText color={"#00D87D"}>
+                <StatArrow type="increase" />
+                +2.45%
+              </StatHelpText>
+            </Stat>
+            {/* <Stack
               w={"20%"}
               direction={{ base: "row", md: "column" }}
-              color="white"
+             
             >
               <Heading size={"lg"}>$15.6K</Heading>
               <Text>Total Spent</Text>
               <Flex align={"center"}>
                 <IoMdArrowDropup color={"#00D87D"} />
-                <Text color={"#00D87D"}>+2.45%</Text>
+                <Text>+2.45%</Text>
               </Flex>
-            </Stack>
-
+            </Stack> */}
+            {/* <AreaExample /> */}
             <MonthChart />
-          </CardBody>
-          {/* <AreaExample /> */}
+          </Flex>
         </Card>
         <Card
           rounded={"2xl"}

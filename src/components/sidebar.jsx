@@ -19,7 +19,7 @@ export default function IndexSidebar() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const navData = [
-    { icon: IoHome, title: "My NFT", link: "/dashboard" },
+    { icon: IoHome, title: "My Miner", link: "/miner" },
     { icon: FaCartArrowDown, title: "Marketplace", link: "/marketplace" },
     { icon: CiMoneyBill, title: "Rewards", link: "/" },
     { icon: MdGroups, title: "Referrals", link: "/referrals" },
