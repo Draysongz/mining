@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -27,15 +28,18 @@ import {
   Image,
   FormControl,
   FormLabel,
+  Input,
   Select,
   RadioGroup,
   Radio,
   Divider,
   Icon,
   Box,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { FaRegCreditCard } from "react-icons/fa";
 import { FaCcMastercard } from "react-icons/fa";
+import { FaCcVisa } from "react-icons/fa";
 import { SiTether } from "react-icons/si";
 import { SiBinance } from "react-icons/si";
 import { SiBitcoincash } from "react-icons/si";
@@ -60,9 +64,20 @@ export default function PaymentModal({user, startMining, payout, power}) {
     toast.success("Miner created");
     onClose();
   };
+  const [showForm, setShowForm] = useState(false); // Initialize showForm state
+  const handleRadioChange = () => {
+    setShowForm((prevState) => !prevState);
+  };
+
   return (
     <>
-      <Button bg="#3b49df" color="white" _hover="inherit" onClick={onOpen}>
+      <Button
+        bg="#3b49df"
+        align={"center"}
+        color="white"
+        _hover="inherit"
+        onClick={onOpen}
+      >
         Next
       </Button>
 
@@ -83,8 +98,12 @@ export default function PaymentModal({user, startMining, payout, power}) {
               <Flex p={1}></Flex>
               <Tabs isFitted variant="enclosed">
                 <TabList>
-                  <Tab>By Card</Tab>
-                  <Tab>By Crypto</Tab>
+                  <Tab bg="#3b49df" textColor={"white"}>
+                    By Card
+                  </Tab>
+                  <Tab bg="#3b49df" textColor={"white"}>
+                    By Crypto
+                  </Tab>
                 </TabList>
                 <TabPanels
                   bg="#3b49df"
@@ -94,9 +113,13 @@ export default function PaymentModal({user, startMining, payout, power}) {
                   rounded={"lg"}
                 >
                   <TabPanel>
-                    <FormControl p={2}>
+                    <FormControl p={3}>
                       <FormLabel>Country/Region</FormLabel>
-                      <Select placeholder="Select country" textColor={"black"}>
+                      <Select
+                        placeholder="Select country"
+                        textColor={"black"}
+                        bg={"gray.300"}
+                      >
                         <option>United States of America</option>
                         <option>Nigeria</option>
                       </Select>
@@ -107,33 +130,77 @@ export default function PaymentModal({user, startMining, payout, power}) {
                         region
                       </Text>
                     </Flex>
-                    <RadioGroup p={2}>
-                      <Radio>
+
+                    <RadioGroup p={2} bg="gray.400" margin={5} rounded={"lg"}>
+                      <Radio isChecked={showForm} onChange={handleRadioChange}>
                         <Flex align={"center"} gap={2}>
                           <Box bg={"orange"} rounded={"full"} p={2}>
                             {" "}
                             <Icon
-                              boxSize={4}
+                              boxSize={6}
                               as={FaRegCreditCard}
                               color={"yellow.50"}
                             />
                           </Box>
                           <Stack>
                             <Text>By Card</Text>
-                            <Flex align={"center"} justify="space-around">
-                              <Text fontSize={"9px"} as={"sub"}>
+                            <Flex
+                              align={"center"}
+                              justify="space-around"
+                              gap={1}
+                            >
+                              <Text fontSize={"10px"} as={"sub"}>
                                 USD
                               </Text>
+                              <Icon
+                                as={FaCcVisa}
+                                fontSize="md"
+                                color={"yellow.50"}
+                                boxSize={5}
+                              />
                               <Icon
                                 as={FaCcMastercard}
                                 fontSize="md"
                                 color={"yellow.50"}
+                                boxSize={5}
                               />
                             </Flex>
                           </Stack>
                         </Flex>
                       </Radio>
                     </RadioGroup>
+                    {showForm && (
+                      <Flex bg={"white.300"}>
+                        <SimpleGrid columns={"2"}>
+                          <FormControl isRequired>
+                            <FormLabel>
+                              Credit card number{" "}
+                              <Input type="" placeholder="Card number" />
+                            </FormLabel>
+                          </FormControl>
+                          <FormControl isRequired>
+                            <FormLabel>
+                              Name on card{" "}
+                              <Input type="text" placeholder="Card name" />
+                            </FormLabel>
+                          </FormControl>
+                          <FormControl isRequired>
+                            <FormLabel>
+                              Expiry date{" "}
+                              <Input
+                                type="datetime-local"
+                                placeholder="Select Date and Time"
+                              />
+                            </FormLabel>
+                          </FormControl>
+                          <FormControl isRequired>
+                            <FormLabel>
+                              CVV/CVC <Input type="number" placeholder="CVC" />
+                            </FormLabel>
+                          </FormControl>
+                        </SimpleGrid>
+                      </Flex>
+                    )}
                     <Flex
                       p={2}
                       bg={"gray.400"}
@@ -147,7 +214,13 @@ export default function PaymentModal({user, startMining, payout, power}) {
                         automatically add them to your collection.
                       </Text>
                     </Flex>
-                    <Stack p={2}>
+                    <Stack
+                      margin={2}
+                      bg={"gray.700"}
+                      border={"2px solid #301287"}
+                      rounded={"lg"}
+                      p={2}
+                    >
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Price per TH</Text>
                         <Text>$24</Text>
@@ -247,7 +320,12 @@ export default function PaymentModal({user, startMining, payout, power}) {
                       </Stack>
                     </RadioGroup>
                     <Flex p={5}></Flex>
-                    <Stack>
+                    <Stack
+                      bg={"gray.700"}
+                      border={"2px solid #301287"}
+                      rounded={"lg"}
+                      p={2}
+                    >
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Price per TH</Text>
                         <Text>$27.99</Text>
