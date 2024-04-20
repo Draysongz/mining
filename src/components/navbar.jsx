@@ -38,38 +38,37 @@ export default function Navbar({ startMining }) {
 
   useEffect(() => {
     const auth = getAuth();
-  
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const userId = user.uid; // Get userId from user object
-        console.log('User ID:', userId);
+        console.log("User ID:", userId);
         const db = getFirestore(app);
-        const docRef = doc(db, 'users', userId);
+        const docRef = doc(db, "users", userId);
         getDoc(docRef)
           .then((docSnap) => {
             if (docSnap.exists()) {
               const userData = docSnap.data();
-              console.log('User data:', userData);
+              console.log("User data:", userData);
               setUser({ userId, ...userData }); // Include userId in the user data object
             } else {
-              console.log('User document not found.');
+              console.log("User document not found.");
             }
           })
           .catch((error) => {
-            console.error('Error fetching user data:', error.message);
+            console.error("Error fetching user data:", error.message);
           });
       } else {
         // Redirect to login page if not already there
-        if (!Router.pathname.includes('/login')) {
-          toast.error('Please login');
-          Router.push('/login');
+        if (!Router.pathname.includes("/login")) {
+          toast.error("Please login");
+          Router.push("/login");
         }
       }
     });
-  
+
     return () => unsubscribe();
   }, []);
-  
 
   return (
     <Box
