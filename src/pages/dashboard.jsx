@@ -32,6 +32,7 @@ export default function dashboard() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(user.uid);
+        const userId= user.uid
         const db = getFirestore(app);
         const docRef = doc(db, 'users', user.uid);
         getDoc(docRef)
@@ -39,7 +40,7 @@ export default function dashboard() {
             if (docSnap.exists()) {
               const userData = docSnap.data();
               console.log('User data:', userData);
-              setUser(userData);
+              setUser({userId, ...userData});
             } else {
               console.log('User document not found.');
             }
@@ -85,7 +86,7 @@ export default function dashboard() {
           {/* Sidebar Component */}
           <IndexSidebar />
           {/* Dashscreen Components */}
-          <DashScreen miner={miner} />
+          <DashScreen miner={miner} user={user}/>
         </Flex>
       </Box>
     </>

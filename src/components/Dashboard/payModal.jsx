@@ -40,9 +40,26 @@ import { SiTether } from "react-icons/si";
 import { SiBinance } from "react-icons/si";
 import { SiBitcoincash } from "react-icons/si";
 import Rec9 from "../../images/Rectangle9.png";
+import { useState } from "react";
+import {toast} from 'react-toastify'
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 
-export default function PaymentModal() {
+export default function PaymentModal({user, startMining, payout, power}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  
+  const [miner, setMiner] = useState(null);
+  const [balance, setBalance] = useState(0);
+
+  const handleStartMining = async (e) => {
+    e.preventDefault();
+    
+    const cost = power * 24;
+    console.log(`the userId is ${user.userId}, with power ${power} which costs ${cost}`)
+    startMining(user.userId, power, cost);
+    toast.success("Miner created");
+    onClose();
+  };
   return (
     <>
       <Button bg="#3b49df" color="white" _hover="inherit" onClick={onOpen}>
@@ -133,19 +150,19 @@ export default function PaymentModal() {
                     <Stack p={2}>
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Price per TH</Text>
-                        <Text>$27.99</Text>
+                        <Text>$24</Text>
                       </Flex>
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Historical ROI</Text>
-                        <Text>58.72</Text>
+                        <Text>${payout}</Text>
                       </Flex>
                       <Flex align={"center"} justify={"space-between"}>
                         <Flex>
                           <Text>Total</Text>
                         </Flex>
                         <Stack align={"end"}>
-                          <Text>83.58</Text>
-                          <Text>29.14 USD</Text>
+                          <Text>${payout}</Text>
+                          <Text>{power * 24 + 1.15}</Text>
                           <Text>Includes fee 1.15 USD</Text>
                         </Stack>
                       </Flex>
@@ -262,7 +279,8 @@ export default function PaymentModal() {
 
           <ModalFooter alignContent={"center"} justifyContent={"space-around"}>
             <Button onClick={onClose}>Back</Button>
-            <Button bg="#3b49df" textColor={"white"} mr={3}>
+            <Button bg="#3b49df" textColor={"white"} mr={3}
+            onClick={handleStartMining}>
               Pay
             </Button>
           </ModalFooter>

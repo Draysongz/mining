@@ -38,14 +38,16 @@ import { ArrowForwardIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 export default function CModal({ user, startMining }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [power, setpower] = useState("");
+  const [payout, setPayout] = useState(0)
 
   useEffect(() => {
     console.log(power);
+    const payout= (power * 24 *300)/100
+    setPayout(payout)
   }, [power]);
 
   console.log(user)
 
-  console.log(user);
   const [miner, setMiner] = useState(null);
   const [balance, setBalance] = useState(0);
 
@@ -126,7 +128,7 @@ export default function CModal({ user, startMining }) {
                         <Tbody>
                           <Tr>
                             <Td fontSize="xs">POOL PAYOUT</Td>
-                            <Td isNumeric>$3.300.00005195</Td>
+                            <Td isNumeric>${payout}</Td>
                           </Tr>
                           <Tr>
                             <Td fontSize="xs">
@@ -134,7 +136,7 @@ export default function CModal({ user, startMining }) {
                                 <Text>NET REWARD</Text> <InfoOutlineIcon />
                               </Flex>
                             </Td>
-                            <Td isNumeric>2</Td>
+                            <Td isNumeric>${payout}</Td>
                           </Tr>
                         </Tbody>
                       </Table>
@@ -165,15 +167,15 @@ export default function CModal({ user, startMining }) {
                     <Stack>
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Price per TH</Text>
-                        <Text>$27.99</Text>
+                        <Text>$24</Text>
                       </Flex>
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Historical ROI</Text>
-                        <Text>58.72</Text>
+                        <Text>${payout}</Text>
                       </Flex>
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Total</Text>
-                        <Text>27.99</Text>
+                        <Text>${power * 24}</Text>
                       </Flex>
                     </Stack>
                   </TabPanel>
@@ -186,7 +188,7 @@ export default function CModal({ user, startMining }) {
           </ModalBody>
 
           <ModalFooter>
-            <PaymentModal />
+            <PaymentModal user={user} startMining={startMining} payout={payout} power={power} />
             {/* <Button
               bg="#3b49df"
               textColor={"white"}

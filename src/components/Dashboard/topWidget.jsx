@@ -10,12 +10,14 @@ import {
 import { FaChartPie } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import Miner from "@/pages/api/Controllers/miner";
+import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import { app } from "../../../Firebase/firebase";
 
-export default function TopWidget({ miner }) {
+export default function TopWidget({ miner, user }) {
   const [balance, setBalance] = useState(0);
-  const [userId, setUserId] = useState('')
-
+  console.log(`user deets from top widget`, user)
   useEffect(() => {
+    
     const interval = setInterval(() => {
       if (miner) {
         const newBalance = miner.getCurrentBalance();
@@ -24,8 +26,36 @@ export default function TopWidget({ miner }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [miner]);
+  }, [miner]); 
+  
+  useEffect(() => {
+    // Save miner details to database
+    const userId = user?.userId
+    console.log(userId)
+    if (miner) {
+      saveToDatabase(miner, userId);
+    }
+  }, [balance, miner]);
 
+
+  async function saveToDatabase(miner, userId) {
+    try {
+      const db = getFirestore(app);
+      const minerRef = doc(db, "miners", userId);
+      await setDoc(minerRef, {
+        userId: miner.userId,
+        hashRate: miner.hashRate,
+        cost: miner.cost,
+        totalMinedToday: miner.totalMinedToday,
+        miningStarted: miner.miningStarted,
+        btcToUsd: miner.btcToUsd,
+      });
+  
+      console.log("Miner details saved to database successfully.");
+    } catch (error) {
+      console.error("Error saving miner details:", error);
+    }
+  }
 
 
   const cardData = [
