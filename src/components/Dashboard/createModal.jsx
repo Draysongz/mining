@@ -25,7 +25,10 @@ import {
   Td,
   TableContainer,
   Image,
+  Link,
+  Icon,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { IoMdAdd } from "react-icons/io";
 import Rec9 from "../../images/Rectangle9.png";
 import NextImage from "next/image";
@@ -33,6 +36,7 @@ import { useState, useEffect } from "react";
 import Miner from "@/pages/api/Controllers/miner";
 import { toast } from "react-toastify";
 import PaymentModal from "./payModal";
+import { SiBitcoincash } from "react-icons/si";
 import { ArrowForwardIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 
 export default function CModal({ user, startMining }) {
@@ -110,23 +114,37 @@ export default function CModal({ user, startMining }) {
               <Heading size={"sm"}>Rewards Calculation</Heading>
               <Tabs variant="enclosed">
                 <TabList>
-                  <Tab bg="#3b49df">Annually</Tab>
-                  <Tab bg="#3b49df">Daily</Tab>
+                  <Tab bg="#3b49df" textColor={"white"}>
+                    Annually
+                  </Tab>
+                  <Tab bg="#3b49df" textColor={"white"}>
+                    Daily
+                  </Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel
-                    bg="#3b49df"
                     backgroundImage={`url(${Rec9.src})`}
                     backgroundSize="cover"
                     backgroundPosition="center"
                     rounded={"lg"}
                   >
-                    <TableContainer p={2} borderRadius={"lg"}>
+                    <TableContainer
+                      p={2}
+                      borderRadius={"lg"}
+                      bg={"rgba(59, 73, 223, 0.5)"}
+                    >
                       <Table variant="simple">
                         <Tbody>
                           <Tr>
                             <Td fontSize="xs">POOL PAYOUT</Td>
-                            <Td isNumeric>$3.300.00005195</Td>
+                            <Td isNumeric align="center">
+                              $3.300.00005195
+                              <Icon
+                                boxSize={3}
+                                as={SiBitcoincash}
+                                color={"yellow.50"}
+                              />
+                            </Td>
                           </Tr>
                           <Tr>
                             <Td fontSize="xs">
@@ -151,7 +169,7 @@ export default function CModal({ user, startMining }) {
                         gap={3}
                       >
                         <InfoOutlineIcon boxSize={4} />
-                        <Text fontSize={"9px"}>
+                        <Text fontSize={"9px"} color={"white"}>
                           Bitcoin halving is expected around 21 April. Make sure
                           you adjust your investment strategy.
                         </Text>
@@ -159,10 +177,18 @@ export default function CModal({ user, startMining }) {
                     </Stack>
 
                     <Flex p={2} align={"center"} justify="space-between">
-                      <Text>Miner traits</Text>
-                      <ArrowForwardIcon />
+                      <Link>
+                        {" "}
+                        <Text>Miner traits</Text>
+                        <ArrowForwardIcon />
+                      </Link>
                     </Flex>
-                    <Stack>
+                    <Stack
+                      bg={"gray.700"}
+                      border={"2px solid #301287"}
+                      rounded={"lg"}
+                      p={2}
+                    >
                       <Flex align={"center"} justify={"space-between"}>
                         <Text>Price per TH</Text>
                         <Text>$27.99</Text>
