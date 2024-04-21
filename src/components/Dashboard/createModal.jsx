@@ -33,7 +33,7 @@ import { IoMdAdd } from "react-icons/io";
 import Rec9 from "../../images/Rectangle9.png";
 import NextImage from "next/image";
 import { useState, useEffect } from "react";
-import Miner from "@/pages/api/Controllers/miner";
+import Miner from "../../pages/api/Controllers/miner";
 import { toast } from "react-toastify";
 import PaymentModal from "./payModal";
 import { SiBitcoincash } from "react-icons/si";

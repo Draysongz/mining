@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 import {
   Modal,
   ModalOverlay,
@@ -47,6 +47,32 @@ import Rec9 from "../../images/Rectangle9.png";
 import { useState } from "react";
 import {toast} from 'react-toastify'
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
+
+const handleCheckout = async (power) => {
+  const stripe = await stripePromise;
+  const response = await fetch('/api/route', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ power: power }),
+  });
+  const session = await response.json();
+
+  const result = await stripe.redirectToCheckout({
+      sessionId: session.sessionId,
+  });
+
+  if (result.error) {
+      alert(result.error.message);
+  }
+};
 
 export default function PaymentModal({user, startMining, payout, power}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -54,6 +80,10 @@ export default function PaymentModal({user, startMining, payout, power}) {
   
   const [miner, setMiner] = useState(null);
   const [balance, setBalance] = useState(0);
+
+
+
+
 
   const handleStartMining = async (e) => {
     e.preventDefault();
@@ -68,6 +98,9 @@ export default function PaymentModal({user, startMining, payout, power}) {
   const handleRadioChange = () => {
     setShowForm((prevState) => !prevState);
   };
+
+  
+  
 
   return (
     <>
@@ -169,38 +202,7 @@ export default function PaymentModal({user, startMining, payout, power}) {
                         </Flex>
                       </Radio>
                     </RadioGroup>
-                    {showForm && (
-                      <Flex bg={"white.300"}>
-                        <SimpleGrid columns={"2"}>
-                          <FormControl isRequired>
-                            <FormLabel>
-                              Credit card number{" "}
-                              <Input type="" placeholder="Card number" />
-                            </FormLabel>
-                          </FormControl>
-                          <FormControl isRequired>
-                            <FormLabel>
-                              Name on card{" "}
-                              <Input type="text" placeholder="Card name" />
-                            </FormLabel>
-                          </FormControl>
-                          <FormControl isRequired>
-                            <FormLabel>
-                              Expiry date{" "}
-                              <Input
-                                type="datetime-local"
-                                placeholder="Select Date and Time"
-                              />
-                            </FormLabel>
-                          </FormControl>
-                          <FormControl isRequired>
-                            <FormLabel>
-                              CVV/CVC <Input type="number" placeholder="CVC" />
-                            </FormLabel>
-                          </FormControl>
-                        </SimpleGrid>
-                      </Flex>
-                    )}
+                  
                     <Flex
                       p={2}
                       bg={"gray.400"}
@@ -358,7 +360,7 @@ export default function PaymentModal({user, startMining, payout, power}) {
           <ModalFooter alignContent={"center"} justifyContent={"space-around"}>
             <Button onClick={onClose}>Back</Button>
             <Button bg="#3b49df" textColor={"white"} mr={3}
-            onClick={handleStartMining}>
+            onClick={() => handleCheckout(power)}>
               Pay
             </Button>
           </ModalFooter>
