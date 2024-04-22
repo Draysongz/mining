@@ -64,32 +64,7 @@ export default function dashboard() {
 
   const [miner, setMiner] = useState(null);
   const [balance, setBalance] = useState(0);
-  useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3000');
 
-    ws.onopen = () => {
-      console.log('WebSocket Connected');
-      ws.send('Hello Server!');
-    };
-
-    ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      console.log('Received:', message);
-      setMiningData(message);
-    };
-
-    ws.onerror = (error) => {
-      console.log('WebSocket Error:', error);
-    };
-
-    ws.onclose = () => {
-      console.log('WebSocket Disconnected');
-    };
-
-    return () => {
-      ws.close();
-    };
-  }, []);
 
   const startMining = (userId, hashRate, cost) => {
     const newMiner = new Miner(userId, hashRate, cost);
