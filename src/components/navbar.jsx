@@ -35,7 +35,7 @@ import { app } from "../../Firebase/firebase";
 export default function Navbar({ startMining }) {
   // Define state to store user data
   const [user, setUser] = useState(null);
-
+  const fullName = user?.firstName + user?.lastName;
   useEffect(() => {
     const auth = getAuth();
 
@@ -152,28 +152,12 @@ export default function Navbar({ startMining }) {
                   >
                     <MenuItem>
                       <VStack justifyContent="start" alignItems="left">
-                        <Text fontWeight="500">Muhammad Ahmad</Text>
-                        <Text size="sm" color="gray.500" mt="0 !important">
-                          @m_ahmad
+                        <Text fontWeight="500">
+                          {`${user ? fullName : "anon"}`}
                         </Text>
                       </VStack>
                     </MenuItem>
                   </Link>
-                  <MenuDivider />
-                  <MenuItem>
-                    <Text fontWeight="500" as={NextLink} href="/dashboard">
-                      Dashboard
-                    </Text>
-                  </MenuItem>
-                  <MenuItem>
-                    <Text fontWeight="500">Create Post</Text>
-                  </MenuItem>
-                  <MenuItem>
-                    <Text fontWeight="500">Reading List</Text>
-                  </MenuItem>
-                  <MenuItem>
-                    <Text fontWeight="500">Settings</Text>
-                  </MenuItem>
                   <MenuDivider />
                   <MenuItem>
                     <Text fontWeight="500">Sign Out</Text>

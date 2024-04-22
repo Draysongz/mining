@@ -15,9 +15,8 @@ import { app } from "../../../Firebase/firebase";
 
 export default function TopWidget({ miner, user }) {
   const [balance, setBalance] = useState(0);
-  console.log(`user deets from top widget`, user)
+  console.log(`user deets from top widget`, user);
   useEffect(() => {
-    
     const interval = setInterval(() => {
       if (miner) {
         const newBalance = miner.getCurrentBalance();
@@ -26,17 +25,16 @@ export default function TopWidget({ miner, user }) {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [miner]); 
-  
+  }, [miner]);
+
   useEffect(() => {
     // Save miner details to database
-    const userId = user?.userId
-    console.log(userId)
+    const userId = user?.userId;
+    console.log(userId);
     if (miner) {
       saveToDatabase(miner, userId);
     }
   }, [balance, miner]);
-
 
   async function saveToDatabase(miner, userId) {
     try {
@@ -50,16 +48,18 @@ export default function TopWidget({ miner, user }) {
         miningStarted: miner.miningStarted,
         btcToUsd: miner.btcToUsd,
       });
-  
+
       console.log("Miner details saved to database successfully.");
     } catch (error) {
       console.error("Error saving miner details:", error);
     }
   }
 
-
   const cardData = [
-    { title: "Total Rewards", text: balance ? parseFloat(balance).toFixed(20): 0 },
+    {
+      title: "Total Rewards",
+      text: balance ? parseFloat(balance).toFixed(20) : 0,
+    },
     { title: "Miners", text: "1 Miner" },
     { title: "Power", text: miner?.hashRate ? miner.hashRate : 1 },
     { title: "Mean Efficiency", text: "35 W/TH" },
@@ -83,8 +83,8 @@ export default function TopWidget({ miner, user }) {
             px={6}
             py={4}
           >
-            <Box bg={"#EDE8FC"} rounded="full" p={1}>
-              <Icon boxSize={8} color={"#301287"} as={FaChartPie} />
+            <Box bg={""} rounded="full" p={1}>
+              <Icon boxSize={8} color={"#EDE8FC"} as={FaChartPie} />
             </Box>
 
             <Stack color={"white"} p={2}>

@@ -45,8 +45,8 @@ export default function BtmWidget() {
                   {card.text}
                 </Text>
               </Flex>
-              <Box bg={"#EDE8FC"} rounded="full" p={1}>
-                <Icon boxSize={8} color={"#501EE1"} as={FaChartPie} />
+              <Box bg={""} rounded="full" p={1}>
+                <Icon boxSize={8} color={"#EDE8FC"} as={FaChartPie} />
               </Box>
             </Flex>
 

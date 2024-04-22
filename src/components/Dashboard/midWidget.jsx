@@ -43,8 +43,8 @@ export default function MidWidget() {
                 Monthly Analysis
               </Text>
             </Flex>
-            <Box bg={"#EDE8FC"} rounded="full" p={1}>
-              <Icon boxSize={8} color={"#501EE1"} as={FaChartPie} />
+            <Box bg={""} rounded="full" p={1}>
+              <Icon boxSize={8} color={"#EDE8FC"} as={FaChartPie} />
             </Box>
           </Flex>
           <Flex direction={{ base: "column", md: "row" }}>
@@ -86,8 +86,8 @@ export default function MidWidget() {
                 Computing Power
               </Text>
             </Flex>
-            <Box bg={"#EDE8FC"} rounded="full" p={1}>
-              <Icon boxSize={8} color={"#501EE1"} as={FaChartPie} />
+            <Box bg={""} rounded="full" p={1}>
+              <Icon boxSize={8} color={"#EDE8FC"} as={FaChartPie} />
             </Box>
           </Flex>
           <CardBody>
