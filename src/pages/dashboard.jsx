@@ -19,10 +19,14 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, getDoc, doc } from "firebase/firestore";
 import { app } from "../../Firebase/firebase";
 
+import { useRouter } from 'next/router';
+
 
 export default function dashboard() {
   // Define state to store user data
+  const router = useRouter();
   const [user, setUser] = useState(null);
+  const { userId, amount, paymentSuccess } = router.query;
 
 
   
@@ -60,6 +64,32 @@ export default function dashboard() {
 
   const [miner, setMiner] = useState(null);
   const [balance, setBalance] = useState(0);
+  useEffect(() => {
+    const ws = new WebSocket('ws://localhost:3000');
+
+    ws.onopen = () => {
+      console.log('WebSocket Connected');
+      ws.send('Hello Server!');
+    };
+
+    ws.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      console.log('Received:', message);
+      setMiningData(message);
+    };
+
+    ws.onerror = (error) => {
+      console.log('WebSocket Error:', error);
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket Disconnected');
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   const startMining = (userId, hashRate, cost) => {
     const newMiner = new Miner(userId, hashRate, cost);
@@ -67,19 +97,46 @@ export default function dashboard() {
     setMiner(newMiner);
   };
 
-  const stopMining = () => {
-    if (miner) {
-      miner.stopMining();
-      setMiner(null);
+  const handleStartMining = async (userId, hashRate, cost) => {
+    setIsMining(true);
+    try {
+        const response = await fetch('/api/start-mining', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId, hashRate, cost }),
+        });
+        if (response.ok) {
+            console.log('Mining started successfully.');
+        } else {
+            console.error('Failed to start mining:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error starting mining:', error);
+    } finally {
+        setIsMining(false);
     }
-  };
+};
+
+
+  useEffect(() => {
+    if (paymentSuccess === 'true' && userId && amount) {
+      const hashRate = amount/24
+  
+
+     
+  
+    }
+}, [userId, amount, paymentSuccess]);
+
 
   return (
     <>
       <Box>
         {/* Navbar */}
         <Flex>
-          <Navbar startMining={startMining}  />
+          <Navbar />
         </Flex>
         {/* Sidebar and dashscreen */}
         <Flex flexDir={["column", "row", "row", "row"]}>
