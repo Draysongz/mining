@@ -2,7 +2,7 @@
 import admin from 'firebase-admin';
 
 // Replace 'path/to/serviceAccountKey.json' with your actual file path
-const serviceAccount = require(process.env.GOOGLE_SECRET_PATH);
+const serviceAccount = require(process.env.GOOGLE_SECRET);
 
 if (!admin.apps.length) {
   admin.initializeApp({
