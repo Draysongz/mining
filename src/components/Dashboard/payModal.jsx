@@ -54,14 +54,17 @@ import { loadStripe } from "@stripe/stripe-js";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 
-const handleCheckout = async (power) => {
+const handleCheckout = async (power, userId) => {
   const stripe = await stripePromise;
   const response = await fetch('/api/route', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ power: power }),
+      body: JSON.stringify({
+         amount: power * 24,
+         userId:userId
+         }),
   });
   const session = await response.json();
 
@@ -74,7 +77,7 @@ const handleCheckout = async (power) => {
   }
 };
 
-export default function PaymentModal({user, startMining, payout, power}) {
+export default function PaymentModal({user, payout, power}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   
@@ -360,7 +363,7 @@ export default function PaymentModal({user, startMining, payout, power}) {
           <ModalFooter alignContent={"center"} justifyContent={"space-around"}>
             <Button onClick={onClose}>Back</Button>
             <Button bg="#3b49df" textColor={"white"} mr={3}
-            onClick={() => handleCheckout(power)}>
+            onClick={() => handleCheckout(power, user.userId)}>
               Pay
             </Button>
           </ModalFooter>

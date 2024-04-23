@@ -32,7 +32,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, getDoc, doc } from "firebase/firestore";
 import { app } from "../../Firebase/firebase";
 
-export default function Navbar({ startMining }) {
+export default function Navbar() {
   // Define state to store user data
   const [user, setUser] = useState(null);
   const fullName = user?.firstName + user?.lastName;
@@ -108,7 +108,7 @@ export default function Navbar({ startMining }) {
             </InputGroup>
             <HStack>
               <>
-                <CModal user={user} spacing={10} startMining={startMining} />
+                <CModal user={user} spacing={10} />
               </>
               {/* <Button
                 as={NextLink}

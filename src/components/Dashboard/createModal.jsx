@@ -39,7 +39,7 @@ import PaymentModal from "./payModal";
 import { SiBitcoincash } from "react-icons/si";
 import { ArrowForwardIcon, InfoOutlineIcon } from "@chakra-ui/icons";
 
-export default function CModal({ user, startMining }) {
+export default function CModal({ user}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [power, setpower] = useState("");
   const [payout, setPayout] = useState(0)
@@ -55,13 +55,6 @@ export default function CModal({ user, startMining }) {
   const [miner, setMiner] = useState(null);
   const [balance, setBalance] = useState(0);
 
-  const handleStartMining = async (e) => {
-    e.preventDefault();
-    const cost = power * 24;
-    startMining(user.userId, power, cost);
-    toast.success("Miner created");
-    onClose();
-  };
 
   return (
     <>
@@ -214,7 +207,7 @@ export default function CModal({ user, startMining }) {
           </ModalBody>
 
           <ModalFooter>
-            <PaymentModal user={user} startMining={startMining} payout={payout} power={power} />
+            <PaymentModal user={user} payout={payout} power={power} />
             {/* <Button
               bg="#3b49df"
               textColor={"white"}

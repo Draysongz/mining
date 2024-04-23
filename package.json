@@ -22,6 +22,7 @@
     "dotenv": "^16.4.5",
     "ethers": "^5.7.2",
     "firebase": "^10.11.0",
+    "firebase-admin": "^12.1.0",
     "framer-motion": "^11.0.24",
     "jose": "^5.2.4",
     "js-cookie": "^3.0.5",
@@ -35,7 +36,9 @@
     "react-slick": "^0.30.2",
     "react-toastify": "^10.0.5",
     "recharts": "^2.12.4",
-    "stripe": "^15.3.0"
+    "stripe": "^15.3.0",
+    "uuid": "^9.0.1",
+    "ws": "^8.16.0"
   },
   "devDependencies": {
     "@types/react": "18.2.79",
