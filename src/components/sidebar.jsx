@@ -12,16 +12,17 @@ import NextLink from "next/link";
 import { IoHome } from "react-icons/io5";
 import { FaCartArrowDown } from "react-icons/fa";
 import { CiMoneyBill } from "react-icons/ci";
-import { MdGroups } from "react-icons/md";
+import { MdGroups, MdSpaceDashboard } from "react-icons/md";
+import { GiMiner } from "react-icons/gi";
 import { useMediaQuery } from "@chakra-ui/react";
 
 export default function IndexSidebar() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const navData = [
-    { icon: IoHome, title: "My Miner", link: "/miner" },
+    { icon: MdSpaceDashboard, title: "Dashboard", link: "/dashboard" },
+    { icon: GiMiner, title: "My Miner", link: "/miner" },
     { icon: FaCartArrowDown, title: "Marketplace", link: "/marketplace" },
-    { icon: CiMoneyBill, title: "Rewards", link: "/" },
     { icon: MdGroups, title: "Referrals", link: "/referrals" },
   ];
 
