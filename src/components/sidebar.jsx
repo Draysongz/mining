@@ -20,7 +20,7 @@ export default function IndexSidebar() {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
 
   const navData = [
-    { icon: MdSpaceDashboard, title: "Dashboard", link: "/" },
+    { icon: MdSpaceDashboard, title: "Dashboard", link: "/dashboard" },
     { icon: GiMiner, title: "My Miner", link: "/miner" },
     { icon: FaCartArrowDown, title: "Marketplace", link: "/marketplace" },
     { icon: MdGroups, title: "Referrals", link: "/referrals" },

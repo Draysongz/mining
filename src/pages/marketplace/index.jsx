@@ -7,6 +7,7 @@ import {
   Link,
   Text,
   Icon,
+  Button,
 } from "@chakra-ui/react";
 import CardComponent from "@/components/Dashboard/dashCard2";
 import DashTab from "@/components/Dashboard/dashTab";
@@ -17,6 +18,9 @@ import { FaCartArrowDown } from "react-icons/fa";
 import { CiMoneyBill } from "react-icons/ci";
 import { MdGroups } from "react-icons/md";
 import IndexSidebar from "@/components/sidebar";
+import { IoMdList } from "react-icons/io";
+import nft1 from "../../images/Nft1.png";
+import Image from "next/image";
 
 export default function marketplace() {
   return (
@@ -40,14 +44,74 @@ export default function marketplace() {
             spacing={5}
             p={5}
           >
-            {/* Tab Section */}
-            <DashTab />
-            {/* Card Section */}
-            <CardComponent />
-            <Flex w={"20%"} p={5}></Flex>
+            {/* <Flex p={5}>
+              <Button
+                border="2px solid #301287"
+                width={"100px"}
+                size={"sm"}
+                variant="outline"
+                color="white"
+                leftIcon={<IoMdList />}
+                _hover="inherit"
+              >
+                Filter
+              </Button>
+            </Flex> */}
+            <Flex p={5}>
+              <Button
+                border="2px solid #301287"
+                width={"100px"}
+                size={"sm"}
+                variant="outline"
+                color="white"
+                leftIcon={<IoMdList />}
+                _hover="inherit"
+              >
+                Filter
+              </Button>
+            </Flex>
+            <NFTCards />
           </Stack>
         </Flex>
       </Box>
     </>
+  );
+}
+
+const nftData = [
+  {
+    src: "https://gateway.pinata.cloud/ipfs/QmRqSZ2bFS46QYZ1HgwGurogGsrZrwMDaRgckM32yZKrQb/1.png",
+    id: "1",
+    title: "KdNFT",
+  },
+  {
+    src: "https://gateway.pinata.cloud/ipfs/QmRqSZ2bFS46QYZ1HgwGurogGsrZrwMDaRgckM32yZKrQb/2.png",
+    id: "2",
+    title: "KdNFT",
+  },
+];
+function NFTCards() {
+  return (
+    <div className="grid grid-cols-4 gap-5 p-5">
+      {nftData.map((data) => (
+        <NFTCard dets={data} />
+      ))}
+    </div>
+  );
+}
+
+function NFTCard({ dets }) {
+  const { src, id: tokenId, title: collectionName } = dets;
+  return (
+    <div className="border-2 border-solid border-[#301287] w-[230px] rounded-lg ">
+      <Image src={src} width={500} height={500} className="rounded-lg" />
+      <div className="p-5 ">
+        <div className="flex justify-between items-center">
+          <h2>#{tokenId}</h2>
+          <button className="bg-[#301287] w-[80px] py-1 rounded-lg">Buy</button>
+        </div>
+        <p className="mt-5 font-bold">{collectionName}</p>
+      </div>
+    </div>
   );
 }
